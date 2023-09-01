@@ -10,6 +10,8 @@ function PlantDetails() {
 
   const [shouldGetPlant, setShouldGetPlant] = useState(true);
 
+  const [user, setUser] = useState(null);
+
   const API_URL = "http://localhost:5005";
 
   const { plantId } = useParams();
@@ -61,6 +63,18 @@ function PlantDetails() {
       .catch((error) => console.log(error));
   };
 
+  useEffect(() => {
+    axios
+      .get(`${API_URL}/auth/profile`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+      .then((response) => {
+        const oneUser = response.data;
+        setUser(oneUser);
+      })
+      .catch((error) => console.log(error));
+  }, [storedToken]);
+
   return (
     <div>
       {foundPlant && (
@@ -77,9 +91,11 @@ function PlantDetails() {
                   <p>{review.content}</p>
                   <p>{review.rating}</p>
                   <p>{review.author.name}</p>
-                  <button onClick={() => deleteReview(review._id)}>
-                    Delete
-                  </button>
+                  {user.reviews.includes(review._id) && (
+                    <button onClick={() => deleteReview(review._id)}>
+                      Delete
+                    </button>
+                  )}
                 </div>
               );
             })}
