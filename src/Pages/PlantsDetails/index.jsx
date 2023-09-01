@@ -1,10 +1,19 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 function PlantDetails() {
   const [foundPlant, setfoundPlant] = useState(null);
-  //const [fetching, setFetching] = useState(true);
+
+  const [content, setContent] = useState("");
+  const [rating, setRating] = useState(1);
+
+  const [editContent, setEditContent] = useState("");
+  const [editRating, setEditRating] = useState(1);
+
+  const [shouldGetPlant, setShouldGetPlant] = useState(true);
+
+  const navigate = useNavigate();
 
   const API_URL = "http://localhost:5005";
 
@@ -12,16 +21,73 @@ function PlantDetails() {
 
   useEffect(() => {
     const storedToken = localStorage.getItem("authToken");
+    if (shouldGetPlant) {
+      axios
+        .get(`${API_URL}/api/plants/${plantId}`, {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        })
+        .then((response) => {
+          const onePlant = response.data;
+          setfoundPlant(onePlant);
+        })
+        .catch((error) => console.log(error))
+        .finally(() => setShouldGetPlant(false));
+    }
+  }, [plantId, shouldGetPlant]);
+
+  // Add New Review
+
+  const handleSubmitAddReview = (e) => {
+    const storedToken = localStorage.getItem("authToken");
+
+    e.preventDefault();
+
+    const requestBody = { content, rating };
+
     axios
-      .get(`${API_URL}/api/plants/${plantId}`, {
+      .post(`${API_URL}/api/plants/${plantId}/createReview`, requestBody, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
-      .then((response) => {
-        const onePlant = response.data;
-        setfoundPlant(onePlant);
+      .then(() => {
+        setShouldGetPlant(true);
       })
       .catch((error) => console.log(error));
-  }, [plantId]);
+  };
+
+  // Edit Review
+
+  const handleSubmitEditReview = (e, reviewId) => {
+    const storedToken = localStorage.getItem("authToken");
+    e.preventDefault();
+    console.log(editContent);
+    console.log(editRating);
+    const requestBody = { content: editContent, rating: editRating };
+
+    axios
+      .put(
+        `${API_URL}/api/plants/${plantId}/${reviewId}/editReview`,
+        requestBody,
+        {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        }
+      )
+      .then(() => {
+       
+        navigate(0);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  // Delete
+
+  const deleteReview = () => {
+    axios
+      .delete(`${API_URL}/api/plants/${plantId}`)
+      .then(() => {
+        navigate(0);
+      })
+      .catch((error) => console.log(error));
+  };
 
   return (
     <div>
@@ -31,8 +97,71 @@ function PlantDetails() {
           <p>{foundPlant.description}</p>
           <img src={"/images/allPlants.jpg"} alt="Plant image" />
           <p>{foundPlant.tips}</p>
+
+          <div>
+            {foundPlant.reviews.map((review) => {
+              return (
+                <div key={review._id}>
+                  <p>{review.content}</p>
+                  <p>{review.rating}</p>
+                  <p>{review.author.name}</p>
+                  <button onClick={deleteReview}>Delete</button>
+
+                  <form onSubmit={(e) => handleSubmitEditReview(e, review._id)}>
+                    <label>
+                      Content:
+                      <textarea
+                        type="text"
+                        name="content"
+                        value={review.editContent}
+                        onChange={(e) => setEditContent(e.target.value)}
+                      />
+                    </label>
+
+                    <label>
+                      Rating:
+                      <input
+                        type="number"
+                        name="rating"
+                        value={review.editRating}
+                        onChange={(e) => setEditRating(e.target.value)}
+                      />
+                    </label>
+
+                    <button type="submit">Edit Review</button>
+                  </form>
+                </div>
+              );
+            })}
+          </div>
+
+          <form onSubmit={handleSubmitAddReview}>
+            <label>
+              Content:
+              <input
+                type="text"
+                name="content"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+              />
+            </label>
+
+            <label>
+              Rating:
+              <input
+                type="number"
+                name="rating"
+                value={rating}
+                onChange={(e) => setRating(e.target.value)}
+              />
+            </label>
+
+            <button type="submit">Create Review</button>
+          </form>
         </div>
       )}
+
+      <Link to={"/plants"}>Back</Link>
     </div>
   );
 }
