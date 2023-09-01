@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 function PlantDetails() {
@@ -8,19 +8,15 @@ function PlantDetails() {
   const [content, setContent] = useState("");
   const [rating, setRating] = useState(1);
 
-  const [editContent, setEditContent] = useState("");
-  const [editRating, setEditRating] = useState(1);
-
   const [shouldGetPlant, setShouldGetPlant] = useState(true);
-
-  const navigate = useNavigate();
 
   const API_URL = "http://localhost:5005";
 
   const { plantId } = useParams();
 
+  const storedToken = localStorage.getItem("authToken");
+
   useEffect(() => {
-    const storedToken = localStorage.getItem("authToken");
     if (shouldGetPlant) {
       axios
         .get(`${API_URL}/api/plants/${plantId}`, {
@@ -33,13 +29,11 @@ function PlantDetails() {
         .catch((error) => console.log(error))
         .finally(() => setShouldGetPlant(false));
     }
-  }, [plantId, shouldGetPlant]);
+  }, [plantId, shouldGetPlant, storedToken]);
 
   // Add New Review
 
   const handleSubmitAddReview = (e) => {
-    const storedToken = localStorage.getItem("authToken");
-
     e.preventDefault();
 
     const requestBody = { content, rating };
@@ -54,37 +48,15 @@ function PlantDetails() {
       .catch((error) => console.log(error));
   };
 
-  // Edit Review
-
-  const handleSubmitEditReview = (e, reviewId) => {
-    const storedToken = localStorage.getItem("authToken");
-    e.preventDefault();
-    console.log(editContent);
-    console.log(editRating);
-    const requestBody = { content: editContent, rating: editRating };
-
-    axios
-      .put(
-        `${API_URL}/api/plants/${plantId}/${reviewId}/editReview`,
-        requestBody,
-        {
-          headers: { Authorization: `Bearer ${storedToken}` },
-        }
-      )
-      .then(() => {
-       
-        navigate(0);
-      })
-      .catch((error) => console.log(error));
-  };
-
   // Delete
 
-  const deleteReview = () => {
+  const deleteReview = (reviewId) => {
     axios
-      .delete(`${API_URL}/api/plants/${plantId}`)
+      .delete(`${API_URL}/api/plants/${plantId}/${reviewId}/deleteReview`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
       .then(() => {
-        navigate(0);
+        setShouldGetPlant(true);
       })
       .catch((error) => console.log(error));
   };
@@ -105,31 +77,9 @@ function PlantDetails() {
                   <p>{review.content}</p>
                   <p>{review.rating}</p>
                   <p>{review.author.name}</p>
-                  <button onClick={deleteReview}>Delete</button>
-
-                  <form onSubmit={(e) => handleSubmitEditReview(e, review._id)}>
-                    <label>
-                      Content:
-                      <textarea
-                        type="text"
-                        name="content"
-                        value={review.editContent}
-                        onChange={(e) => setEditContent(e.target.value)}
-                      />
-                    </label>
-
-                    <label>
-                      Rating:
-                      <input
-                        type="number"
-                        name="rating"
-                        value={review.editRating}
-                        onChange={(e) => setEditRating(e.target.value)}
-                      />
-                    </label>
-
-                    <button type="submit">Edit Review</button>
-                  </form>
+                  <button onClick={() => deleteReview(review._id)}>
+                    Delete
+                  </button>
                 </div>
               );
             })}
