@@ -7,6 +7,7 @@ import IsPrivate from './Components/IsPrivate';
 import IsAnon from './Components/IsAnon';
 import HomePage from './Pages/HomePage';
 import AllPlantsPage from './Pages/AllPlants';
+import PlantDetails from './Pages/PlantsDetails';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/plants" element={<AllPlantsPage />} />
-
+        <Route path="/plants/:plantId" element={<IsPrivate><PlantDetails /></IsPrivate>} />
         <Route
           path="/signup"
           element={
