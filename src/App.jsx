@@ -8,12 +8,14 @@ import IsAnon from './Components/IsAnon';
 import HomePage from './Pages/HomePage';
 import AllPlantsPage from './Pages/AllPlants';
 import PlantDetails from './Pages/PlantsDetails';
+import ProfilePage from './Pages/ProfilePage';
 
 function App() {
   return (
     <div>
       <Navbar />
       <Routes>
+        <Route path="/profile" element={<ProfilePage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/plants" element={<AllPlantsPage />} />
         <Route path="/plants/:plantId" element={<IsPrivate><PlantDetails /></IsPrivate>} />
