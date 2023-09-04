@@ -10,13 +10,14 @@ function AllPlantsPage() {
   const [plants, setPlants] = useState([]);
   const [filteredPlant, setFilteredPlant] = useState(plants);
   const location = useLocation();
-  const { category } = location.state;
+  const { category } = location.state || {};
 
   useEffect(() => {
     axios
       .get(`${API_URL}/api/plants`)
       .then((response) => {
         if (category) {
+          console.log('category', category)
           const result = response.data.filter(
             (plant) => plant.category === category
           );
@@ -42,13 +43,6 @@ function AllPlantsPage() {
     setFilteredPlant(result);
   };
 
-  // useEffect(() => {
-  //   if (category) {
-  //     const result = plants.filter((plant) => plant.category === category);
-
-  //     setFilteredPlant(result);
-  //   }
-  // }, [category, plants]);
 
   return (
     <div>
