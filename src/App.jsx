@@ -9,6 +9,8 @@ import HomePage from './Pages/HomePage';
 import AllPlantsPage from './Pages/AllPlants';
 import PlantDetails from './Pages/PlantsDetails';
 import ProfilePage from './Pages/ProfilePage';
+import MyPlantsPage from './Pages/MyPlants';
+import WishListPage from './Pages/WishList';
 
 function App() {
   return (
@@ -18,7 +20,30 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/plants" element={<AllPlantsPage />} />
-        <Route path="/plants/:plantId" element={<IsPrivate><PlantDetails /></IsPrivate>} />
+        <Route
+          path="/plants/:plantId"
+          element={
+            <IsPrivate>
+              <PlantDetails />
+            </IsPrivate>
+          }
+        />
+        <Route
+          path="/myPlants"
+          element={
+            <IsPrivate>
+              <MyPlantsPage />
+            </IsPrivate>
+          }
+        />
+        <Route
+          path="/wishList"
+          element={
+            <IsPrivate>
+              <WishListPage />
+            </IsPrivate>
+          }
+        />
         <Route
           path="/signup"
           element={

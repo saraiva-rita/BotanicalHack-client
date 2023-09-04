@@ -1,4 +1,8 @@
-#root {
+* {
+  margin: 0;
+  padding: 0;
+}
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -39,6 +43,40 @@
 
 .read-the-docs {
   color: #888;
+} */
+
+.loginPage {
+  background: url(/images/LoginPage.jpg) no-repeat center center/cover;
+  width: 100vw;
+  height: 100vh;
 }
-
-
+.signupPage {
+  background: url(/images/SignupPage.jpg) no-repeat center center/cover;
+  width: 100vw;
+  height: 100vh;
+}
+.profilePage {
+  background: url(/images/ProfilePage.jpg) no-repeat center center/cover;
+  width: 100vw;
+  height: 100vh;
+}
+.plants-details-banner {
+  background: url(/images/PlantsDetailsPage.jpg) no-repeat center center/cover;
+  width: 100vw;
+  height: 500px;
+}
+.all-plants-page {
+  background: url(/images/AllPlantsPage.jpg) no-repeat center center/cover;
+  width: 100vw;
+  height: 500px;
+}
+.myPlants-banner {
+  background: url(/images/MyPlantsPage.jpg) no-repeat center center/cover;
+  width: 100vw;
+  height: 500px;
+}
+.wishList-banner {
+  background: url(/images/WishlistPage.jpg) no-repeat center center/cover;
+  width: 100vw;
+  height: 500px;
+}

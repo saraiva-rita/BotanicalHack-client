@@ -17,16 +17,20 @@ function AllPlantsPage() {
 
   return (
     <div>
-      <h2>All Plants</h2>
-      {plants.map((plant) => {
-        return (
-          <div key={plant._id}>
-            <Link to={`/plants/${plant._id}`}>
-              <h3>{plant.name}</h3>
-            </Link>
-          </div>
-        );
-      })}
+      <div className="all-plants-page"></div>
+      <div>
+        <h2>All Plants</h2>
+        {plants.map((plant) => {
+          return (
+            <div key={plant._id}>
+              <Link to={`/plants/${plant._id}`}>
+                <h3>{plant.name}</h3>
+                <img src={plant.image} alt="Plant image" />
+              </Link>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

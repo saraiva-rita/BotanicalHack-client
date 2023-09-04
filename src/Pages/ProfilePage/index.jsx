@@ -1,11 +1,11 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 function ProfilePage() {
-  const API_URL = "http://localhost:5005";
-  const storedToken = localStorage.getItem("authToken");
+  const API_URL = 'http://localhost:5005';
+  const storedToken = localStorage.getItem('authToken');
   const [user, setUser] = useState(null);
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const [shouldGetUser, setShouldGetUser] = useState(true);
 
   useEffect(() => {
@@ -17,7 +17,6 @@ function ProfilePage() {
         .then((response) => {
           const oneUser = response.data;
           setUser(oneUser);
-          
         })
         .catch((error) => console.log(error))
         .finally(() => setShouldGetUser(false));
@@ -26,7 +25,7 @@ function ProfilePage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const requestBody = {name}
+    const requestBody = { name };
     axios
       .put(`${API_URL}/auth/profile/editName`, requestBody, {
         headers: { Authorization: `Bearer ${storedToken}` },
@@ -38,7 +37,7 @@ function ProfilePage() {
   };
 
   return (
-    <div>
+    <div className="profilePage">
       {user && (
         <div>
           <h3>{user.name}</h3>
