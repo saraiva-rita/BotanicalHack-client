@@ -76,16 +76,23 @@ function PlantDetails() {
   }, [storedToken]);
 
   // Add Plants to MyPlants
-
   const addMyPlants = () => {
     axios
-      .post(
-        `${API_URL}/api/plants/${plantId}/addMyPlants`,
-        console.log('stored token:', storedToken),
-        {
-          headers: { Authorization: `Bearer ${storedToken}` },
-        }
-      )
+      .post(`${API_URL}/api/plants/${plantId}/addMyPlants`, '', {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+      .then(() => {
+        setShouldGetPlant(true);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  // Add Plants to Wish List
+  const addWishList = () => {
+    axios
+      .post(`${API_URL}/api/plants/${plantId}/addToWishList`, '', {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
       .then(() => {
         setShouldGetPlant(true);
       })
@@ -100,6 +107,7 @@ function PlantDetails() {
           <div>
             <h1>{foundPlant.name}</h1>
             <button onClick={addMyPlants}>Add to My Plants</button>
+            <button onClick={addWishList}>Add to My Wish List</button>
             <img src={foundPlant.image} alt="Plant image" />
             <p>{foundPlant.description}</p>
             <p>{foundPlant.tips}</p>
