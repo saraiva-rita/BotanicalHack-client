@@ -2,22 +2,33 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "../../Components/Searchbar";
+import { useLocation } from "react-router-dom";
 
 const API_URL = "http://localhost:5005";
 
 function AllPlantsPage() {
   const [plants, setPlants] = useState([]);
   const [filteredPlant, setFilteredPlant] = useState(plants);
+  const location = useLocation();
+  const { category } = location.state;
 
   useEffect(() => {
     axios
       .get(`${API_URL}/api/plants`)
       .then((response) => {
-        setPlants(response.data);
-        setFilteredPlant(response.data);
+        if (category) {
+          const result = response.data.filter(
+            (plant) => plant.category === category
+          );
+          setPlants(result);
+          setFilteredPlant(result);
+        } else {
+          setPlants(response.data);
+          setFilteredPlant(response.data);
+        }
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [category]);
 
   const searchPlant = (searchedName) => {
     if (searchedName === "") {
@@ -27,11 +38,17 @@ function AllPlantsPage() {
     const result = plants.filter((plant) =>
       plant.name.toLowerCase().includes(searchedName)
     );
-    console.log('result', result)
-    console.log('searchedName', searchedName)
-    console.log('plants', plants)
+
     setFilteredPlant(result);
   };
+
+  // useEffect(() => {
+  //   if (category) {
+  //     const result = plants.filter((plant) => plant.category === category);
+
+  //     setFilteredPlant(result);
+  //   }
+  // }, [category, plants]);
 
   return (
     <div>
