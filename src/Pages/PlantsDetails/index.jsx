@@ -1,22 +1,22 @@
-import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import axios from "axios";
+import { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 function PlantDetails() {
   const [foundPlant, setfoundPlant] = useState(null);
 
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState('');
   const [rating, setRating] = useState(1);
 
   const [shouldGetPlant, setShouldGetPlant] = useState(true);
 
   const [user, setUser] = useState(null);
 
-  const API_URL = "http://localhost:5005";
+  const API_URL = 'http://localhost:5005';
 
   const { plantId } = useParams();
 
-  const storedToken = localStorage.getItem("authToken");
+  const storedToken = localStorage.getItem('authToken');
 
   useEffect(() => {
     if (shouldGetPlant) {
@@ -80,8 +80,8 @@ function PlantDetails() {
       {foundPlant && (
         <div>
           <h1>{foundPlant.name}</h1>
+          <img src={foundPlant.image} alt="Plant image" />
           <p>{foundPlant.description}</p>
-          <img src={"/images/allPlants.jpg"} alt="Plant image" />
           <p>{foundPlant.tips}</p>
 
           <div>
@@ -127,7 +127,7 @@ function PlantDetails() {
         </div>
       )}
 
-      <Link to={"/plants"}>Back</Link>
+      <Link to={'/plants'}>Back</Link>
     </div>
   );
 }
