@@ -1,22 +1,23 @@
-import { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
 
 function PlantDetails() {
   const [foundPlant, setfoundPlant] = useState(null);
 
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState("");
   const [rating, setRating] = useState(1);
 
   const [shouldGetPlant, setShouldGetPlant] = useState(true);
 
   const [user, setUser] = useState(null);
 
-  const API_URL = 'http://localhost:5005';
+  const API_URL = "http://localhost:5005";
 
   const { plantId } = useParams();
 
-  const storedToken = localStorage.getItem('authToken');
+  const storedToken = localStorage.getItem("authToken");
+  
 
   useEffect(() => {
     if (shouldGetPlant) {
@@ -78,7 +79,7 @@ function PlantDetails() {
   // Add Plants to MyPlants
   const addMyPlants = () => {
     axios
-      .post(`${API_URL}/api/plants/${plantId}/addMyPlants`, '', {
+      .post(`${API_URL}/api/plants/${plantId}/addMyPlants`, "", {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then(() => {
@@ -90,7 +91,7 @@ function PlantDetails() {
   // Add Plants to Wish List
   const addWishList = () => {
     axios
-      .post(`${API_URL}/api/plants/${plantId}/addToWishList`, '', {
+      .post(`${API_URL}/api/plants/${plantId}/addToWishList`, "", {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then(() => {
@@ -154,7 +155,7 @@ function PlantDetails() {
             </form>
           </div>
         )}
-        <Link to={'/plants'}>Back</Link>
+        <Link to={"/plants"}>Back</Link>
       </div>
     </div>
   );

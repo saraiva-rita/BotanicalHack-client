@@ -10,14 +10,14 @@ function AllPlantsPage() {
   const [plants, setPlants] = useState([]);
   const [filteredPlant, setFilteredPlant] = useState(plants);
   const location = useLocation();
-  const { category } = location.state || {};
+  const { category, description } = location.state || {};
 
   useEffect(() => {
     axios
       .get(`${API_URL}/api/plants`)
       .then((response) => {
         if (category) {
-          console.log('category', category)
+          console.log("category", category);
           const result = response.data.filter(
             (plant) => plant.category === category
           );
@@ -43,9 +43,14 @@ function AllPlantsPage() {
     setFilteredPlant(result);
   };
 
-
   return (
     <div>
+      {category && (
+        <div className="hero-banner-categories">
+          <h3>{category}</h3>
+          <p>{description}</p>
+        </div>
+      )}
       <div className="all-plants-page"></div>
       <div>
         <SearchBar searchPlant={searchPlant} />
