@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function WishListPage() {
   const [wishList, setWishList] = useState(null);
@@ -42,7 +43,12 @@ function WishListPage() {
         wishList.map((plant) => {
           return (
             <div key={plant._id}>
-              <h3>{plant.name}</h3>
+              <Link
+                to={`/plants/${plant._id}`}
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                {plant.name}
+              </Link>
               <img src={plant.image} alt="Plant image" />
               <button onClick={() => removeWishList(plant._id)}>Delete</button>
             </div>

@@ -2,6 +2,9 @@
   margin: 0;
   padding: 0;
 }
+body {
+  font-family: 'Montserrat', sans-serif;
+}
 
 .loginPage {
   background: url(/images/LoginPage.jpg) no-repeat center center/cover;

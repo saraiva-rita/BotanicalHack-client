@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function MyPlantsPage() {
   const [myPlants, setMyPlants] = useState(null);
@@ -41,9 +42,20 @@ function MyPlantsPage() {
       {myPlants &&
         myPlants.map((plant) => {
           return (
-            <div key={plant._id}>
-              <h3>{plant.name}</h3>
-              <img src={plant.image} alt="Plant image" />
+            <div key={plant._id} style={{ width: '300px' }}>
+              <Link
+                to={`/plants/${plant._id}`}
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                {plant.name}
+              </Link>
+              <div>
+                <img
+                  src={plant.image}
+                  style={{ width: '100%', height: 'auto' }}
+                  alt="Plant image"
+                />
+              </div>
               <button onClick={() => removeMyPlants(plant._id)}>Delete</button>
             </div>
           );
