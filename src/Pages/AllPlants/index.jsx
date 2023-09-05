@@ -1,10 +1,14 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import SearchBar from "../../Components/Searchbar";
-import { useLocation } from "react-router-dom";
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import SearchBar from '../../Components/Searchbar';
+import { useLocation } from 'react-router-dom';
 
-const API_URL = "http://localhost:5005";
+import Box from '@mui/material/Box';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+
+const API_URL = 'http://localhost:5005';
 
 function AllPlantsPage() {
   const [plants, setPlants] = useState([]);
@@ -17,7 +21,7 @@ function AllPlantsPage() {
       .get(`${API_URL}/api/plants`)
       .then((response) => {
         if (category) {
-          console.log("category", category);
+          console.log('category', category);
           const result = response.data.filter(
             (plant) => plant.category === category
           );
@@ -32,7 +36,7 @@ function AllPlantsPage() {
   }, [category]);
 
   const searchPlant = (searchedName) => {
-    if (searchedName === "") {
+    if (searchedName === '') {
       setFilteredPlant(plants);
       return;
     }
@@ -52,20 +56,44 @@ function AllPlantsPage() {
         </div>
       )}
       <div className="all-plants-page"></div>
-      <div>
-        <SearchBar searchPlant={searchPlant} />
-        <h2>All Plants {filteredPlant && filteredPlant.length}</h2>
-        {filteredPlant &&
-          filteredPlant.map((plant) => {
-            return (
-              <div key={plant._id}>
-                <Link to={`/plants/${plant._id}`}>
-                  <h3>{plant.name}</h3>
-                  <img src={plant.image} alt="Plant image" />
-                </Link>
-              </div>
-            );
-          })}
+
+      <SearchBar searchPlant={searchPlant} />
+      <h2>All Plants {filteredPlant && filteredPlant.length}</h2>
+
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          minHeight: '100vh',
+        }}
+      >
+        <Box sx={{ width: 1350, height: 730 }}>
+          <ImageList variant="masonry" cols={4} gap={10}>
+            {filteredPlant &&
+              filteredPlant.map((plant) => {
+                return (
+                  <ImageListItem key={plant._id}>
+                    <div key={plant._id}>
+                      <Link
+                        to={`/plants/${plant._id}`}
+                        style={{ textDecoration: 'none', color: 'inherit' }}
+                      >
+                        <img
+                          src={`${plant.image}?w=50&fit=crop&auto=format`}
+                          srcSet={`${plant.image}?w=50&fit=crop&auto=format&dpr=2 2x`}
+                          alt={plant.name}
+                          loading="lazy"
+                          style={{ width: '100%', height: 'auto' }}
+                        />
+                        <h3 style={{ textAlign: 'center' }}>{plant.name} </h3>
+                      </Link>
+                    </div>
+                  </ImageListItem>
+                );
+              })}
+          </ImageList>
+        </Box>
       </div>
     </div>
   );
