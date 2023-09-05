@@ -1,27 +1,27 @@
-import { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
-import * as React from 'react';
-import Tabs from '@mui/joy/Tabs';
-import TabList from '@mui/joy/TabList';
-import Tab from '@mui/joy/Tab';
-import TabPanel from '@mui/joy/TabPanel';
+import { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
+import Tabs from "@mui/joy/Tabs";
+import TabList from "@mui/joy/TabList";
+import Tab from "@mui/joy/Tab";
+import TabPanel from "@mui/joy/TabPanel";
 
 function PlantDetails() {
   const [foundPlant, setfoundPlant] = useState(null);
 
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState("");
   const [rating, setRating] = useState(1);
 
   const [shouldGetPlant, setShouldGetPlant] = useState(true);
 
   const [user, setUser] = useState(null);
+  const [shouldGetUser, setShouldGetUser] = useState(true);
 
-  const API_URL = 'http://localhost:5005';
+  const API_URL = "http://localhost:5005";
 
   const { plantId } = useParams();
 
-  const storedToken = localStorage.getItem('authToken');
+  const storedToken = localStorage.getItem("authToken");
 
   useEffect(() => {
     if (shouldGetPlant) {
@@ -51,11 +51,13 @@ function PlantDetails() {
       })
       .then(() => {
         setShouldGetPlant(true);
+        setShouldGetUser(true);
       })
       .catch((error) => console.log(error));
   };
 
-  // Delete Review
+  // Delete Review - status is always pending therefore it does not enter the .then()
+  // On reload the delete is executed
 
   const deleteReview = (reviewId) => {
     axios
@@ -64,26 +66,33 @@ function PlantDetails() {
       })
       .then(() => {
         setShouldGetPlant(true);
+        setShouldGetUser(true);
+        console.log("message delete then");
       })
       .catch((error) => console.log(error));
+
+    console.log("message delete after ");
   };
 
   useEffect(() => {
-    axios
-      .get(`${API_URL}/auth/profile`, {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      })
-      .then((response) => {
-        const oneUser = response.data;
-        setUser(oneUser);
-      })
-      .catch((error) => console.log(error));
-  }, [storedToken]);
+    if (shouldGetUser) {
+      axios
+        .get(`${API_URL}/auth/profile`, {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        })
+        .then((response) => {
+          const oneUser = response.data;
+          setUser(oneUser);
+        })
+        .catch((error) => console.log(error))
+        .finally(() => setShouldGetUser(false));
+    }
+  }, [storedToken, shouldGetUser]);
 
   // Add Plants to MyPlants
   const addMyPlants = () => {
     axios
-      .post(`${API_URL}/api/plants/${plantId}/addMyPlants`, '', {
+      .post(`${API_URL}/api/plants/${plantId}/addMyPlants`, "", {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then(() => {
@@ -95,7 +104,7 @@ function PlantDetails() {
   // Add Plants to Wish List
   const addWishList = () => {
     axios
-      .post(`${API_URL}/api/plants/${plantId}/addToWishList`, '', {
+      .post(`${API_URL}/api/plants/${plantId}/addToWishList`, "", {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then(() => {
@@ -111,8 +120,8 @@ function PlantDetails() {
         {foundPlant && (
           <div
             style={{
-              display: 'flex',
-              alignItems: 'center',
+              display: "flex",
+              alignItems: "center",
             }}
           >
             <div>
@@ -123,9 +132,9 @@ function PlantDetails() {
               />
             </div>
             <div className="details-content">
-              <h1 style={{ margin: '20px 0' }}>{foundPlant.name}</h1>
-              <div style={{ margin: '20px 0' }}>
-                <button style={{ marginRight: '20px' }} onClick={addMyPlants}>
+              <h1 style={{ margin: "20px 0" }}>{foundPlant.name}</h1>
+              <div style={{ margin: "20px 0" }}>
+                <button style={{ marginRight: "20px" }} onClick={addMyPlants}>
                   Add to My Plants
                 </button>
                 <button onClick={addWishList}>Add to My Wish List</button>
@@ -188,7 +197,7 @@ function PlantDetails() {
             </div>
           </div>
         )}
-        <Link to={'/plants'}>Back</Link>
+        <Link to={"/plants"}>Back</Link>
       </div>
     </div>
   );
