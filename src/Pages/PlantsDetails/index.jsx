@@ -123,9 +123,11 @@ function PlantDetails() {
               />
             </div>
             <div className="details-content">
-              <h1>{foundPlant.name}</h1>
-              <div>
-                <button onClick={addMyPlants}>Add to My Plants</button>
+              <h1 style={{ margin: '20px 0' }}>{foundPlant.name}</h1>
+              <div style={{ margin: '20px 0' }}>
+                <button style={{ marginRight: '20px' }} onClick={addMyPlants}>
+                  Add to My Plants
+                </button>
                 <button onClick={addWishList}>Add to My Wish List</button>
               </div>
               <Tabs aria-label="Basic tabs" defaultValue={0}>
