@@ -41,3 +41,7 @@ body {
   width: 100vw;
   height: 500px;
 }
+.details-img {
+  width: 400px;
+  padding: 32px;
+}
