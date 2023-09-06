@@ -11,16 +11,16 @@ const plantCategories = [
     image: '/images/suspended-plant.jpeg',
   },
   {
-    category: 'Pet Friendly',
-    description:
-      'These are plants that are non-toxic to pets, making them safe to have around animals like cats and dogs.',
-    image: '/images/Pink Polks Dot - petfriendly.png',
-  },
-  {
     category: 'Purifying',
     description:
       'Purifying plants are known for their ability to improve indoor air quality by removing toxins and pollutants from the air.',
     image: '/images/sansevieria-laurentii.jpeg',
+  },
+  {
+    category: 'Pet Friendly',
+    description:
+      'These are plants that are non-toxic to pets, making them safe to have around animals like cats and dogs.',
+    image: '/images/pink.png',
   },
   {
     category: 'Calatheas',

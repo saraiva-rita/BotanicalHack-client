@@ -69,11 +69,14 @@ function AllPlantsPage() {
         }}
       >
         <Box sx={{ width: 1350, height: 730 }}>
-          <ImageList variant="masonry" cols={4} gap={10}>
+          <ImageList variant="masonry" cols={4} gap={15}>
             {filteredPlant &&
               filteredPlant.map((plant) => {
                 return (
-                  <ImageListItem key={plant._id}>
+                  <ImageListItem
+                    key={plant._id}
+                    sx={{ border: 1, borderColor: 'grey.500' }}
+                  >
                     <div key={plant._id}>
                       <Link
                         to={`/plants/${plant._id}`}
