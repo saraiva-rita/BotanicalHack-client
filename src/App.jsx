@@ -1,21 +1,22 @@
-import './App.css';
-import { Routes, Route } from 'react-router-dom';
-import Navbar from './Components/Navbar';
-import SignupPage from './Pages/Signup';
-import LoginPage from './Pages/Login';
-import IsPrivate from './Components/IsPrivate';
-import IsAnon from './Components/IsAnon';
-import HomePage from './Pages/HomePage';
-import AllPlantsPage from './Pages/AllPlants';
-import PlantDetails from './Pages/PlantsDetails';
-import ProfilePage from './Pages/ProfilePage';
-import MyPlantsPage from './Pages/MyPlants';
-import WishListPage from './Pages/WishList';
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./Components/Navbar";
+import SignupPage from "./Pages/Signup";
+import LoginPage from "./Pages/Login";
+import IsPrivate from "./Components/IsPrivate";
+import IsAnon from "./Components/IsAnon";
+import HomePage from "./Pages/HomePage";
+import AllPlantsPage from "./Pages/AllPlants";
+import PlantDetails from "./Pages/PlantsDetails";
+import ProfilePage from "./Pages/ProfilePage";
+import MyPlantsPage from "./Pages/MyPlants";
+import WishListPage from "./Pages/WishList";
 
 function App() {
   return (
     <div>
       <Navbar />
+
       <Routes>
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/" element={<HomePage />} />
