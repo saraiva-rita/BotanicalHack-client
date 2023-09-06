@@ -85,7 +85,9 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-left: 700px;
+  position: absolute;
+  right: 300px;
+  
 }
 .banner-content {
   margin: 20px;
