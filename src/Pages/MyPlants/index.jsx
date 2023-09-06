@@ -8,7 +8,7 @@ import Tooltip from '@mui/material/Tooltip';
 function MyPlantsPage() {
   const [myPlants, setMyPlants] = useState(null);
 
-  const API_URL = 'http://localhost:5005';
+  const API_URL = 'https://botanicalhack.onrender.com';
 
   const [fetchMyPlants, setFetchMyPlants] = useState(true);
 

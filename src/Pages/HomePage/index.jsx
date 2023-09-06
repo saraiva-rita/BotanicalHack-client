@@ -59,7 +59,10 @@ function HomePage() {
             {plantCategories.map((plant, index) => {
               return (
                 <ImageListItem key={plant._id}>
-                  <div key={index}>
+                  <div
+                    key={index}
+                    style={{ borderBottom: '0.5px solid #e0e1e1' }}
+                  >
                     <Link
                       to={'/plants'}
                       state={{
@@ -75,7 +78,10 @@ function HomePage() {
                       srcSet={`${plant.image}?w=50&fit=crop&auto=format&dpr=2 2x`}
                       alt={plant.name}
                       loading="lazy"
-                      style={{ width: '300px', height: 'auto' }}
+                      style={{
+                        width: '300px',
+                        height: 'auto',
+                      }}
                     />
                   </div>
                 </ImageListItem>

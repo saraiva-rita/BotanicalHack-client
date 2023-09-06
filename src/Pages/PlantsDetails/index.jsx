@@ -23,7 +23,7 @@ function PlantDetails() {
   const [user, setUser] = useState(null);
   const [shouldGetUser, setShouldGetUser] = useState(true);
 
-  const API_URL = 'http://localhost:5005';
+  const API_URL = 'https://botanicalhack.onrender.com';
 
   const { plantId } = useParams();
 
