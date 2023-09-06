@@ -39,21 +39,39 @@ function WishListPage() {
   return (
     <div>
       <div className="wishList-banner"></div>
-      {wishList &&
-        wishList.map((plant) => {
-          return (
-            <div key={plant._id}>
-              <Link
-                to={`/plants/${plant._id}`}
-                style={{ textDecoration: 'none', color: 'inherit' }}
+      <h2>My Wishlist</h2>
+      <div
+        style={{
+          display: 'flex',
+          textAlign: 'center',
+          margin: '30px',
+        }}
+      >
+        {wishList &&
+          wishList.map((plant) => {
+            return (
+              <div
+                key={plant._id}
+                style={{ width: '300px', margin: '10px', textAlign: 'center' }}
               >
-                {plant.name}
-              </Link>
-              <img src={plant.image} alt="Plant image" />
-              <button onClick={() => removeWishList(plant._id)}>Delete</button>
-            </div>
-          );
-        })}
+                <Link
+                  to={`/plants/${plant._id}`}
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  {plant.name}
+                </Link>
+                <img
+                  src={plant.image}
+                  style={{ width: '100%', height: 'auto', margin: '10px' }}
+                  alt="Plant image"
+                />
+                <button onClick={() => removeWishList(plant._id)}>
+                  Delete
+                </button>
+              </div>
+            );
+          })}
+      </div>
     </div>
   );
 }

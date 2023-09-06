@@ -58,7 +58,7 @@ function AllPlantsPage() {
       <div className="all-plants-page"></div>
 
       <SearchBar searchPlant={searchPlant} />
-      <h2>All Plants {filteredPlant && filteredPlant.length}</h2>
+      <h2>All Plants</h2>
 
       <div
         style={{

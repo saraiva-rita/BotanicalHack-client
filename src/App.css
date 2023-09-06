@@ -5,6 +5,9 @@
 body {
   font-family: 'Montserrat', sans-serif;
 }
+a {
+  text-decoration: none;
+}
 
 .loginPage {
   background: url(/images/LoginPage.jpg) no-repeat center center/cover;
@@ -41,7 +44,23 @@ body {
   width: 100vw;
   height: 500px;
 }
+
 .details-img {
   width: 400px;
   padding: 32px;
+}
+.discover-allPlants {
+  background: url(/images/plants-discover.jpeg) no-repeat center center/cover;
+  opacity: 0.7;
+  z-index: -1;
+  width: 100vw;
+  height: 250px;
+  margin: 20px 0;
+}
+.discover-allPlants h1 {
+  z-index: 1;
+  color: white;
+}
+.plants-category {
+  margin-top: 40px;
 }

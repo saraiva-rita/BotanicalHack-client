@@ -39,27 +39,38 @@ function MyPlantsPage() {
   return (
     <div>
       <div className="myPlants-banner"></div>
-      {myPlants &&
-        myPlants.map((plant) => {
-          return (
-            <div key={plant._id} style={{ width: '300px' }}>
-              <Link
-                to={`/plants/${plant._id}`}
-                style={{ textDecoration: 'none', color: 'inherit' }}
-              >
-                {plant.name}
-              </Link>
-              <div>
-                <img
-                  src={plant.image}
-                  style={{ width: '100%', height: 'auto' }}
-                  alt="Plant image"
-                />
+      <h2>My Plants</h2>
+      <div
+        style={{
+          display: 'flex',
+          textAlign: 'center',
+          margin: '30px',
+        }}
+      >
+        {myPlants &&
+          myPlants.map((plant) => {
+            return (
+              <div key={plant._id} style={{ width: '300px', margin: '10px' }}>
+                <Link
+                  to={`/plants/${plant._id}`}
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  {plant.name}
+                </Link>
+                <div>
+                  <img
+                    src={plant.image}
+                    style={{ width: '100%', height: 'auto' }}
+                    alt="Plant image"
+                  />
+                </div>
+                <button onClick={() => removeMyPlants(plant._id)}>
+                  Delete
+                </button>
               </div>
-              <button onClick={() => removeMyPlants(plant._id)}>Delete</button>
-            </div>
-          );
-        })}
+            );
+          })}
+      </div>
     </div>
   );
 }
