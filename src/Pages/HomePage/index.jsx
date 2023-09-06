@@ -86,7 +86,9 @@ function HomePage() {
       </div>
       <div className="discover-allPlants">
         <h1>Discover our Plants</h1>
-        <Link to={'/plants'}>Learn More</Link>
+        <Link className="button" to={'/plants'}>
+          Learn More
+        </Link>
       </div>
     </div>
   );

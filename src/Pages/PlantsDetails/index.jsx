@@ -5,6 +5,12 @@ import Tabs from '@mui/joy/Tabs';
 import TabList from '@mui/joy/TabList';
 import Tab from '@mui/joy/Tab';
 import TabPanel from '@mui/joy/TabPanel';
+import * as React from 'react';
+import Rating from '@mui/material/Rating';
+import Stack from '@mui/material/Stack';
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 
 function PlantDetails() {
   const [foundPlant, setfoundPlant] = useState(null);
@@ -56,22 +62,19 @@ function PlantDetails() {
       .catch((error) => console.log(error));
   };
 
-  // Delete Review - status is always pending therefore it does not enter the .then()
-  // On reload the delete is executed
-
-  const deleteReview = (reviewId) => {
-    axios
-      .delete(`${API_URL}/api/plants/${plantId}/${reviewId}/deleteReview`, {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      })
-      .then(() => {
-        setShouldGetPlant(true);
-        setShouldGetUser(true);
-        console.log('message delete then');
-      })
-      .catch((error) => console.log(error));
-
-    console.log('message delete after ');
+  const deleteReview = async (reviewId) => {
+    try {
+      setShouldGetPlant(true);
+      setShouldGetUser(true);
+      await axios.delete(
+        `${API_URL}/api/plants/${plantId}/${reviewId}/deleteReview`,
+        {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -116,7 +119,7 @@ function PlantDetails() {
   return (
     <div>
       <div className="plants-details-banner"></div>
-      <div>
+      <div style={{ width: '100%', height: 430 }}>
         {foundPlant && (
           <div
             style={{
@@ -171,11 +174,21 @@ function PlantDetails() {
                           <p>{review.content}</p>
                           <p>{review.rating}</p>
                           <p>{review.author.name}</p>
-                          {user.reviews.includes(review._id) && (
-                            <button onClick={() => deleteReview(review._id)}>
-                              Delete
-                            </button>
-                          )}
+                          <Tooltip title="Delete">
+                            <IconButton>
+                              {user.reviews.includes(review._id) && (
+                                <button
+                                  style={{
+                                    border: 'none',
+                                    backgroundColor: 'transparent',
+                                  }}
+                                  onClick={() => deleteReview(review._id)}
+                                >
+                                  <DeleteIcon sx={{ color: 'grey.700' }} />
+                                </button>
+                              )}
+                            </IconButton>
+                          </Tooltip>
                         </div>
                       );
                     })}
@@ -193,18 +206,23 @@ function PlantDetails() {
                         onChange={(e) => setContent(e.target.value)}
                       />
                     </label>
+                    <br />
 
                     <label>
-                      Rating:
-                      <input
-                        type="number"
-                        name="rating"
-                        value={rating}
-                        onChange={(e) => setRating(e.target.value)}
-                      />
+                      Classify {foundPlant.name}
+                      <Stack spacing={1}>
+                        <Rating
+                          name="half-rating"
+                          defaultValue={5.0}
+                          precision={1.0}
+                          value={rating}
+                          onChange={(e) => setRating(e.target.value)}
+                        />
+                      </Stack>
                     </label>
-
-                    <button type="submit">Create Review</button>
+                    <button className="button" type="submit">
+                      Create Review
+                    </button>
                   </form>
                 </TabPanel>
               </Tabs>

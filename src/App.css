@@ -8,6 +8,16 @@ body {
 a {
   text-decoration: none;
 }
+.button {
+  padding: 10px 15px;
+  font-size: 12px;
+  background-color: #227a60;
+  color: #d0e1c3;
+  border: 1px solid;
+  border-radius: 5px;
+  font-weight: 700;
+  cursor: pointer;
+}
 
 .loginPage {
   background: url(/images/LoginPage.jpg) no-repeat center center/cover;
