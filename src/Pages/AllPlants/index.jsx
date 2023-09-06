@@ -51,7 +51,16 @@ function AllPlantsPage() {
   return (
     <div>
       <div
-        style={{ height: '450px', position: 'relative', backgroundImage: image ? `url(${image})` : "url(/images/AllPlantsPage.jpg)", backgroundRepeat: 'no-repeat'}}
+        style={{
+          height: "450px",
+          position: "relative",
+          backgroundImage: image
+            ? `url(${image})`
+            : "url(/images/AllPlantsPage.jpg)",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+        }}
       >
         <div className="details-banner-wrapper yellow-color">
           <div className="banner-content">
@@ -63,7 +72,7 @@ function AllPlantsPage() {
           </div>
         </div>
       </div>
-  
+
       <SearchBar searchPlant={searchPlant} />
       <div
         style={{
