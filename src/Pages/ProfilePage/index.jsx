@@ -1,17 +1,18 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-import {Link} from 'react-router-dom';
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import { IconButton } from "@mui/material";
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import { IconButton } from '@mui/material';
 
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 function ProfilePage() {
-  const API_URL = 'https://botanicalhack.onrender.com';
-  const storedToken = localStorage.getItem("authToken");
+  // const API_URL = 'https://botanicalhack.onrender.com';
+  const API_URL = 'http://localhost:5005';
+  const storedToken = localStorage.getItem('authToken');
   const [user, setUser] = useState(null);
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const [shouldGetUser, setShouldGetUser] = useState(true);
 
   useEffect(() => {
@@ -45,28 +46,28 @@ function ProfilePage() {
   return (
     <div
       style={{
-        width: "100vw",
-        height: "92vh",
-        backgroundImage: "url(/images/ProfilePage.jpg)",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
+        width: '100vw',
+        height: '92vh',
+        backgroundImage: 'url(/images/ProfilePage.jpg)',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
       <Box
         sx={{
           width: 500,
           height: 500,
-          backgroundColor: "#e9f2ef",
+          backgroundColor: '#e9f2ef',
         }}
       >
         <Typography
           variant="h3"
           component="h4"
-          sx={{ textAlign: "center", margin: "15px 0" }}
+          sx={{ textAlign: 'center', margin: '15px 0' }}
         >
           🪴 Hi Gardener 🪴
         </Typography>
@@ -78,17 +79,17 @@ function ProfilePage() {
             <div
               className="user-info"
               style={{
-                display: "flex",
-                alignItems: "flex-start",
-                margin: "15px 0",
+                display: 'flex',
+                alignItems: 'flex-start',
+                margin: '15px 0',
               }}
             >
               <div className="user-info-icon">
                 <IconButton>
                   <AccountCircleIcon
                     sx={{
-                      width: "50px",
-                      height: "50px",
+                      width: '50px',
+                      height: '50px',
                     }}
                   ></AccountCircleIcon>
                 </IconButton>
@@ -106,23 +107,23 @@ function ProfilePage() {
             <hr />
             <div
               style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
               <Box
                 sx={{
-                  width: "90%",
-                  height: "30px",
+                  width: '90%',
+                  height: '30px',
                   boxShadow:
-                    "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-                  margin: "20px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems:'center',
-                  padding: '10px'
+                    '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+                  margin: '20px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: '10px',
                 }}
               >
                 <p>My Reviews</p>
@@ -131,35 +132,39 @@ function ProfilePage() {
 
               <Box
                 sx={{
-                  width: "90%",
-                  height: "30px",
+                  width: '90%',
+                  height: '30px',
                   boxShadow:
-                    "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-                  margin: "20px 0",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems:'center',
-                  padding: '10px'
+                    '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+                  margin: '20px 0',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: '10px',
                 }}
               >
-                <Link to={'/myPlants'}><p>My Plants </p></Link>
+                <Link to={'/myPlants'}>
+                  <p>My Plants </p>
+                </Link>
                 <p>{user.myPlants.length} 🌿</p>
               </Box>
 
               <Box
                 sx={{
-                  width: "90%",
-                  height: "30px",
+                  width: '90%',
+                  height: '30px',
                   boxShadow:
-                    "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-                  margin: "20px 0",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems:'center',
-                  padding: '10px'
+                    '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+                  margin: '20px 0',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: '10px',
                 }}
               >
-                <Link to={'/wishList'}><p>Whislist </p></Link>
+                <Link to={'/wishList'}>
+                  <p>Whislist </p>
+                </Link>
                 <p>{user.wishList.length} 🌿</p>
               </Box>
             </div>

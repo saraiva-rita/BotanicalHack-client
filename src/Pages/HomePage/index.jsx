@@ -23,7 +23,7 @@ const plantCategories = [
     image: '/images/pink.png',
   },
   {
-    category: 'Calatheas',
+    category: 'Calathea',
     description:
       'Calathea is a genus of decorative indoor plants with striking foliage patterns. They are popular for their vibrant and unique leaves.',
     image: '/images/calathea orbifolia.jpg',
