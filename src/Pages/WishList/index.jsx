@@ -1,6 +1,9 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 
 function WishListPage() {
   const [wishList, setWishList] = useState(null);
@@ -74,9 +77,19 @@ function WishListPage() {
                   style={{ width: '100%', height: 'auto', margin: '10px' }}
                   alt="Plant image"
                 />
-                <button onClick={() => removeWishList(plant._id)}>
-                  Delete
-                </button>
+                <Tooltip title="Delete">
+                  <IconButton>
+                    <button
+                      style={{
+                        border: 'none',
+                        backgroundColor: 'transparent',
+                      }}
+                      onClick={() => removeWishList(plant._id)}
+                    >
+                      <DeleteIcon sx={{ color: 'grey.700' }} />
+                    </button>
+                  </IconButton>
+                </Tooltip>
               </div>
             );
           })}

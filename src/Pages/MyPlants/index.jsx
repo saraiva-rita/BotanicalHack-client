@@ -1,6 +1,9 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 
 function MyPlantsPage() {
   const [myPlants, setMyPlants] = useState(null);
@@ -73,9 +76,19 @@ function MyPlantsPage() {
                     alt="Plant image"
                   />
                 </div>
-                <button onClick={() => removeMyPlants(plant._id)}>
-                  Delete
-                </button>
+                <Tooltip title="Delete">
+                  <IconButton>
+                    <button
+                      style={{
+                        border: 'none',
+                        backgroundColor: 'transparent',
+                      }}
+                      onClick={() => removeMyPlants(plant._id)}
+                    >
+                      <DeleteIcon sx={{ color: 'grey.700' }} />
+                    </button>
+                  </IconButton>
+                </Tooltip>
               </div>
             );
           })}
