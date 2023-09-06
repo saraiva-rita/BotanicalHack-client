@@ -71,6 +71,7 @@ function SignupPage(props) {
             color: "white",
             width: "100%",
             padding: "30px",
+            borderRadius: "12px",
           }}
         >
           <Box
@@ -112,6 +113,7 @@ function SignupPage(props) {
                 onChange={(e) => setName(e.target.value)}
                 sx={{ width: "300px", color: "white" }}
                 inputProps={{ style: { color: 'white' } }}
+                InputLabelProps={{style: { color: 'white' }}}
               />
 
               <TextField
@@ -125,6 +127,7 @@ function SignupPage(props) {
                 onChange={(e) => setEmail(e.target.value)}
                 sx={{ width: "300px", color: "white" }}
                 inputProps={{ style: { color: 'white' } }}
+                InputLabelProps={{style: { color: 'white' }}}
               />
               <TextField
                 margin="normal"
