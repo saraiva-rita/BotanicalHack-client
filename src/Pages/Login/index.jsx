@@ -103,6 +103,7 @@ function LoginPage() {
               }}
             >
               <TextField
+
                 margin="normal"
                 required
                 id="email"
@@ -111,9 +112,13 @@ function LoginPage() {
                 autoComplete="email"
                 autoFocus
                 onChange={(e) => setEmail(e.target.value)}
-                sx={{ color: 'white' }}
+                sx={{width: '300px'}}
+
+          
+                
               />
               <TextField
+
                 margin="normal"
                 required
                 name="password"
@@ -122,7 +127,8 @@ function LoginPage() {
                 id="password"
                 autoComplete="current-password"
                 onChange={(e) => setPassword(e.target.value)}
-                sx={{ color: 'white' }}
+                sx={{width: '300px'}}
+                
               />
 
               <Button

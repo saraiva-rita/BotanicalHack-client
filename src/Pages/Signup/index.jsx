@@ -110,7 +110,8 @@ function SignupPage(props) {
                 id="name"
                 autoComplete="name"
                 onChange={(e) => setName(e.target.value)}
-                sx={{ width: "100%", color: "white" }}
+                sx={{ width: "300px", color: "white" }}
+                inputProps={{ style: { color: 'white' } }}
               />
 
               <TextField
@@ -122,7 +123,8 @@ function SignupPage(props) {
                 autoComplete="email"
                 autoFocus
                 onChange={(e) => setEmail(e.target.value)}
-                sx={{ width: "100%", color: "white" }}
+                sx={{ width: "300px", color: "white" }}
+                inputProps={{ style: { color: 'white' } }}
               />
               <TextField
                 margin="normal"
@@ -133,7 +135,10 @@ function SignupPage(props) {
                 id="password"
                 autoComplete="current-password"
                 onChange={(e) => setPassword(e.target.value)}
-                sx={{ width: "100%", color: "white" }}
+                sx={{ width: "300px", color: "white" }}
+                inputProps={{ style: { color: 'white' } }}
+                InputLabelProps={{style: { color: 'white' }}}
+            
               />
 
               <Button
