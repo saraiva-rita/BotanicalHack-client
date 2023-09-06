@@ -118,7 +118,20 @@ function PlantDetails() {
 
   return (
     <div>
-      <div className="plants-details-banner"></div>
+      <div className="plants-details-banner">
+        <div className="details-banner-wrapper grey-color">
+          <div className="banner-content">
+            <h2>Discover our Plants</h2>
+            <p>
+              Plants are nature's healers. They teach us resilience, as they
+              adapt and thrive in diverse environments. In their presence, we
+              find a profound connection to the Earth and a reminder of our
+              responsibility to nurture and protect the source of our
+              well-being.
+            </p>
+          </div>
+        </div>
+      </div>
       <div style={{ width: '100%', height: 430 }}>
         {foundPlant && (
           <div

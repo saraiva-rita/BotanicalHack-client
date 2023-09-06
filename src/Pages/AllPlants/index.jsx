@@ -55,11 +55,20 @@ function AllPlantsPage() {
           <p>{description}</p>
         </div>
       )}
-      <div className="all-plants-page"></div>
+      <div className="all-plants-page">
+        <div className="details-banner-wrapper yellow-color">
+          <div className="banner-content">
+            <h2>All Plants</h2>
+            <p>
+              Explore a Diverse Array of Green Beauties and Find the Perfect
+              Additions for Your Oasis🍀Scroll Through a Verdant Wonderland Your
+              Garden Awaits!
+            </p>
+          </div>
+        </div>
+      </div>
 
       <SearchBar searchPlant={searchPlant} />
-      <h2>All Plants</h2>
-
       <div
         style={{
           display: 'flex',

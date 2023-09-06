@@ -38,8 +38,17 @@ function MyPlantsPage() {
 
   return (
     <div>
-      <div className="myPlants-banner"></div>
-      <h2>My Plants</h2>
+      <div className="myPlants-banner">
+        <div className="details-banner-wrapper orange-color">
+          <div className="banner-content">
+            <h2>My Plants</h2>
+            <p>
+              Welcome to Your Green Oasis!🌿Grow Your Plant Collection with Ease
+              Discover, Track, and Nurture Your Beloved Plants
+            </p>
+          </div>
+        </div>
+      </div>
       <div
         style={{
           display: 'flex',

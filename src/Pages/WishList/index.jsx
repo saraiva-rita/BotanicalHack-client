@@ -38,8 +38,17 @@ function WishListPage() {
 
   return (
     <div>
-      <div className="wishList-banner"></div>
-      <h2>My Wishlist</h2>
+      <div className="wishList-banner">
+        <div className="details-banner-wrapper brown-color">
+          <div className="banner-content">
+            <h2>My Wishlist</h2>
+            <p>
+              Plant Dreams, Grow Wishes 🌿 Welcome to Your Botanical Wishlist!
+              Discover Your Dream Plants and Add Your Favorites to Your Wishlist
+            </p>
+          </div>
+        </div>
+      </div>
       <div
         style={{
           display: 'flex',

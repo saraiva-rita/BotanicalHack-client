@@ -21,37 +21,37 @@ a {
 
 .loginPage {
   background: url(/images/LoginPage.jpg) no-repeat center center/cover;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
 }
 .signupPage {
   background: url(/images/SignupPage.jpg) no-repeat center center/cover;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
 }
 .profilePage {
   background: url(/images/ProfilePage.jpg) no-repeat center center/cover;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
 }
 .plants-details-banner {
   background: url(/images/PlantsDetailsPage.jpg) no-repeat center center/cover;
-  width: 100vw;
+  width: 100%;
   height: 500px;
 }
 .all-plants-page {
   background: url(/images/AllPlantsPage.jpg) no-repeat center center/cover;
-  width: 100vw;
+  width: 100%;
   height: 500px;
 }
 .myPlants-banner {
   background: url(/images/MyPlantsPage.jpg) no-repeat center center/cover;
-  width: 100vw;
+  width: 100%;
   height: 500px;
 }
 .wishList-banner {
   background: url(/images/WishlistPage.jpg) no-repeat center center/cover;
-  width: 100vw;
+  width: 100%;
   height: 500px;
 }
 
@@ -73,4 +73,33 @@ a {
 }
 .plants-category {
   margin-top: 40px;
+}
+
+.details-banner-wrapper {
+  z-index: 1;
+  color: white;
+  width: 500px;
+  height: 400px;
+  text-align: justify;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 700px;
+}
+.banner-content {
+  margin: 20px;
+  line-height: 2;
+}
+.grey-color {
+  background-color: rgba(51, 51, 51, 0.7);
+}
+.yellow-color {
+  background-color: rgb(226, 188, 53, 0.6);
+  font-weight: 500;
+}
+.brown-color {
+  background-color: rgba(168, 130, 85, 0.7);
+}
+.orange-color {
+  background-color: rgba(220, 117, 42, 0.7);
 }
