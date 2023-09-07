@@ -141,8 +141,7 @@ function ProfilePage() {
                     variant="contained"
                     startIcon={<SaveIcon />}
                     onClick={handleSubmit}
-                    sx={{mt: 3, mb: 2}}
-                    //sx={{ mt: 3, mb: 2, backgroundColor: "#227A60" }}
+                    sx={{ mt: 3, mb: 2 }}
                   >
                     Save
                   </Button>

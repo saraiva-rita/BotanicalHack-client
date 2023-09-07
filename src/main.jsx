@@ -6,6 +6,7 @@ import "./index.css";
 import { AuthProviderWrapper } from "./Context/auth.context.jsx";
 import ScrollToTop from "./Components/ScrollToTop/index.jsx";
 
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Router>

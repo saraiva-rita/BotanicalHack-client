@@ -1,21 +1,27 @@
-/* import { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
-import Tabs from '@mui/joy/Tabs';
-import TabList from '@mui/joy/TabList';
-import Tab from '@mui/joy/Tab';
-import TabPanel from '@mui/joy/TabPanel';
-import * as React from 'react';
-import Rating from '@mui/material/Rating';
-import Stack from '@mui/material/Stack';
-import DeleteIcon from '@mui/icons-material/Delete';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
+import { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
+import Tabs from "@mui/joy/Tabs";
+import TabList from "@mui/joy/TabList";
+import Tab from "@mui/joy/Tab";
+import TabPanel from "@mui/joy/TabPanel";
+import Rating from "@mui/material/Rating";
+import Stack from "@mui/material/Stack";
+import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import PetsIcon from "@mui/icons-material/Pets";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import WaterDropIcon from "@mui/icons-material/WaterDrop";
+import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
+import StarIcon from "@mui/icons-material/Star";
+import { Button } from "@mui/material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 function PlantDetails() {
   const [foundPlant, setfoundPlant] = useState(null);
 
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState("");
   const [rating, setRating] = useState(1);
 
   const [shouldGetPlant, setShouldGetPlant] = useState(true);
@@ -24,11 +30,11 @@ function PlantDetails() {
   const [shouldGetUser, setShouldGetUser] = useState(true);
 
   // const API_URL = 'https://botanicalhack.onrender.com';
-  const API_URL = 'http://localhost:5005';
+  const API_URL = "http://localhost:5005";
 
   const { plantId } = useParams();
 
-  const storedToken = localStorage.getItem('authToken');
+  const storedToken = localStorage.getItem("authToken");
 
   useEffect(() => {
     if (shouldGetPlant) {
@@ -96,7 +102,7 @@ function PlantDetails() {
   // Add Plants to MyPlants
   const addMyPlants = () => {
     axios
-      .post(`${API_URL}/api/plants/${plantId}/addMyPlants`, '', {
+      .post(`${API_URL}/api/plants/${plantId}/addMyPlants`, "", {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then(() => {
@@ -108,7 +114,7 @@ function PlantDetails() {
   // Add Plants to Wish List
   const addWishList = () => {
     axios
-      .post(`${API_URL}/api/plants/${plantId}/addToWishList`, '', {
+      .post(`${API_URL}/api/plants/${plantId}/addToWishList`, "", {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then(() => {
@@ -133,12 +139,12 @@ function PlantDetails() {
           </div>
         </div>
       </div>
-      <div style={{ width: '100%', height: 430 }}>
+      <div style={{ width: "98%", height: 430 }}>
         {foundPlant && (
           <div
             style={{
-              display: 'flex',
-              alignItems: 'center',
+              display: "flex",
+              alignItems: "center",
             }}
           >
             <div>
@@ -149,276 +155,33 @@ function PlantDetails() {
               />
             </div>
             <div className="details-content">
-              <h1 style={{ margin: '20px 0' }}>{foundPlant.name}</h1>
-              <div style={{ margin: '20px 0' }}>
-                <button style={{ marginRight: '20px' }} onClick={addMyPlants}>
-                  Add to My Plants
-                </button>
-                <button onClick={addWishList}>Add to My Wish List</button>
-              </div>
-              <Tabs aria-label="Basic tabs" defaultValue={0}>
-                <TabList>
-                  <Tab>Description</Tab>
-                  <Tab>Care Tips</Tab>
-                  <Tab>Reviews</Tab>
-                </TabList>
-                <TabPanel value={0}>
-                  <p>{foundPlant.description}</p>
-                  <p>
-                    <b>Watering:</b> {foundPlant.care.watering}
-                  </p>
-                  <p>
-                    <b>Sunlight:</b> {foundPlant.care.light}
-                  </p>
-                  <p>
-                    <b>Soil:</b> {foundPlant.care.soil}
-                  </p>
-                  <p>
-                    <b>Toxicity:</b> {foundPlant.care.toxicity}
-                  </p>
-                </TabPanel>
-                <TabPanel value={1}>
-                  <p>{foundPlant.tips}</p>
-                </TabPanel>
-                <TabPanel value={2}>
-                  <div>
-                    {foundPlant.reviews.map((review) => {
-                      return (
-                        <div key={review._id}>
-                          <p>{review.content}</p>
-                          <p>{review.rating}</p>
-                          <p>{review.author.name}</p>
-                          <Tooltip title="Delete">
-                            <IconButton>
-                              {user.reviews.includes(review._id) && (
-                                <button
-                                  style={{
-                                    border: 'none',
-                                    backgroundColor: 'transparent',
-                                  }}
-                                  onClick={() => deleteReview(review._id)}
-                                >
-                                  <DeleteIcon sx={{ color: 'grey.700' }} />
-                                </button>
-                              )}
-                            </IconButton>
-                          </Tooltip>
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  <form onSubmit={handleSubmitAddReview}>
-                    <h4>Write your review</h4>
-                    <br />
-                    <label>
-                      Content:
-                      <input
-                        type="text"
-                        name="content"
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                      />
-                    </label>
-                    <br />
-
-                    <label>
-                      Classify {foundPlant.name}
-                      <Stack spacing={1}>
-                        <Rating
-                          name="half-rating"
-                          defaultValue={5.0}
-                          precision={1.0}
-                          value={rating}
-                          onChange={(e) => setRating(e.target.value)}
-                        />
-                      </Stack>
-                    </label>
-                    <button className="button" type="submit">
-                      Create Review
-                    </button>
-                  </form>
-                </TabPanel>
-              </Tabs>
-            </div>
-          </div>
-        )}
-        <Link to={'/plants'}>Back</Link>
-      </div>
-    </div>
-  );
-}
-
-export default PlantDetails; */
-
-import { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
-import Tabs from '@mui/joy/Tabs';
-import TabList from '@mui/joy/TabList';
-import Tab from '@mui/joy/Tab';
-import TabPanel from '@mui/joy/TabPanel';
-import Rating from '@mui/material/Rating';
-import Stack from '@mui/material/Stack';
-import DeleteIcon from '@mui/icons-material/Delete';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import PetsIcon from '@mui/icons-material/Pets';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import WaterDropIcon from '@mui/icons-material/WaterDrop';
-import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
-import PersonIcon from '@mui/icons-material/Person';
-import StarIcon from '@mui/icons-material/Star';
-
-function PlantDetails() {
-  const [foundPlant, setfoundPlant] = useState(null);
-
-  const [content, setContent] = useState('');
-  const [rating, setRating] = useState(1);
-
-  const [shouldGetPlant, setShouldGetPlant] = useState(true);
-
-  const [user, setUser] = useState(null);
-  const [shouldGetUser, setShouldGetUser] = useState(true);
-
-  // const API_URL = 'https://botanicalhack.onrender.com';
-  const API_URL = 'http://localhost:5005';
-
-  const { plantId } = useParams();
-
-  const storedToken = localStorage.getItem('authToken');
-
-  useEffect(() => {
-    if (shouldGetPlant) {
-      axios
-        .get(`${API_URL}/api/plants/${plantId}`, {
-          headers: { Authorization: `Bearer ${storedToken}` },
-        })
-        .then((response) => {
-          const onePlant = response.data;
-          setfoundPlant(onePlant);
-        })
-        .catch((error) => console.log(error))
-        .finally(() => setShouldGetPlant(false));
-    }
-  }, [plantId, shouldGetPlant, storedToken]);
-
-  // Add New Review
-
-  const handleSubmitAddReview = (e) => {
-    e.preventDefault();
-
-    const requestBody = { content, rating };
-
-    axios
-      .post(`${API_URL}/api/plants/${plantId}/createReview`, requestBody, {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      })
-      .then(() => {
-        setShouldGetPlant(true);
-        setShouldGetUser(true);
-      })
-      .catch((error) => console.log(error));
-  };
-
-  const deleteReview = async (reviewId) => {
-    try {
-      setShouldGetPlant(true);
-      setShouldGetUser(true);
-      await axios.delete(
-        `${API_URL}/api/plants/${plantId}/${reviewId}/deleteReview`,
-        {
-          headers: { Authorization: `Bearer ${storedToken}` },
-        }
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    if (shouldGetUser) {
-      axios
-        .get(`${API_URL}/auth/profile`, {
-          headers: { Authorization: `Bearer ${storedToken}` },
-        })
-        .then((response) => {
-          const oneUser = response.data;
-          setUser(oneUser);
-        })
-        .catch((error) => console.log(error))
-        .finally(() => setShouldGetUser(false));
-    }
-  }, [storedToken, shouldGetUser]);
-
-  // Add Plants to MyPlants
-  const addMyPlants = () => {
-    axios
-      .post(`${API_URL}/api/plants/${plantId}/addMyPlants`, '', {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      })
-      .then(() => {
-        setShouldGetPlant(true);
-      })
-      .catch((error) => console.log(error));
-  };
-
-  // Add Plants to Wish List
-  const addWishList = () => {
-    axios
-      .post(`${API_URL}/api/plants/${plantId}/addToWishList`, '', {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      })
-      .then(() => {
-        setShouldGetPlant(true);
-      })
-      .catch((error) => console.log(error));
-  };
-
-  return (
-    <div>
-      <div className="plants-details-banner">
-        <div className="details-banner-wrapper grey-color">
-          <div className="banner-content">
-            <h2>Discover our Plants</h2>
-            <p>
-              Plants are nature's healers. They teach us resilience, as they
-              adapt and thrive in diverse environments. In their presence, we
-              find a profound connection to the Earth and a reminder of our
-              responsibility to nurture and protect the source of our
-              well-being.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div style={{ width: '98%', height: 430 }}>
-        {foundPlant && (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            <div>
-              <img
-                className="details-img"
-                src={foundPlant.image}
-                alt="Plant image"
-              />
-            </div>
-            <div className="details-content">
-              <h1 style={{ margin: '20px 0' }}>{foundPlant.name}</h1>
-              <div style={{ margin: '20px 0' }}>
-                <button
-                  className="button"
-                  style={{ marginRight: '20px' }}
+              <h1 style={{ margin: "20px 0" }}>{foundPlant.name}</h1>
+              <div style={{ margin: "20px 0" }}>
+                <Button
+                  color="primary"
+                  variant="contained"
                   onClick={addMyPlants}
                 >
                   Add to My Plants
-                </button>
-                <button className="button" onClick={addWishList}>
+                </Button>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  onClick={addWishList}
+                  sx={{ marginLeft: "20px" }}
+                >
+                  Add to My Wishlist
+                </Button>
+                {/* <button
+                  className="button"
+                  style={{ marginRight: "20px" }}
+                  onClick={addMyPlants}
+                >
+                  Add to My Plants
+                </button> */}
+                {/* <button className="button" onClick={addWishList}>
                   Add to My WishList
-                </button>
+                </button> */}
               </div>
               <Tabs aria-label="Basic tabs" defaultValue={0}>
                 <TabList>
@@ -465,74 +228,128 @@ function PlantDetails() {
                   <div>
                     {foundPlant.reviews.map((review) => {
                       return (
-                        <div className="posted-reviews" key={review._id}>
-                          <div className="reviews-content">
-                            <p>
-                              <PersonIcon /> {review.author.name}
-                            </p>
-                            <p>{review.content}</p>
-                            <p>
-                              {review.rating} <StarIcon />
-                            </p>
-                          </div>
-                          <div className="delete-reviews">
-                            <Tooltip title="Delete">
+                        <div
+                          key={review._id}
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            webkitBoxShadow:
+                              "2px 2px 9px -4px rgba(51,51,51,1)",
+                            mozBoxShadow: "2px 2px 9px -4px rgba(51,51,51,1)",
+                            boxShadow: "2px 2px 9px -4px rgba(51,51,51,1)",
+                            padding: "20px",
+                            margin: "20px",
+                          }}
+                        >
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "center",
+                            }}
+                          >
+                            <div>
                               <IconButton>
-                                {user.reviews.includes(review._id) && (
-                                  <button
-                                    style={{
-                                      border: 'none',
-                                      backgroundColor: 'transparent',
-                                    }}
-                                    onClick={() => deleteReview(review._id)}
-                                  >
-                                    <DeleteIcon sx={{ color: 'grey.700' }} />
-                                  </button>
-                                )}
+                                <AccountCircleIcon
+                                  sx={{
+                                    width: "50px",
+                                    height: "50px",
+                                  }}
+                                ></AccountCircleIcon>
                               </IconButton>
-                            </Tooltip>
+                              {review.author.name}
+                            </div>
+
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                gap: "3",
+                                fontSize: "1.3rem",
+                              }}
+                            >
+                              <h4>{review.rating} </h4>
+
+                              <StarIcon />
+                            </div>
+                          </div>
+
+                          <div style={{ width: "100%", textAlign: "justify" }}>
+                            <p>{review.content}</p>
+                          </div>
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "flex-end",
+                            }}
+                          >
+                            <div>
+                              {user.reviews.includes(review._id) && (
+                                <Button
+                                  color="secondary"
+                                  variant="contained"
+                                  startIcon={<DeleteIcon />}
+                                  onClick={() => deleteReview(review._id)}
+                                >
+                                  Delete
+                                </Button>
+                              )}
+                            </div>
                           </div>
                         </div>
                       );
                     })}
                   </div>
 
-                  <form onSubmit={handleSubmitAddReview}>
-                    <label>
+                  <div style={{ margin: "20px" }}>
+                    <form onSubmit={handleSubmitAddReview}>
                       <textarea
                         name="content"
                         type="text"
                         value={content}
-                        placeholder=" Write your review"
+                        placeholder="Write your review"
                         onChange={(e) => setContent(e.target.value)}
                         cols="50"
                         rows="7"
+                        style={{
+                          padding: "15px",
+                          fontFamily: "monserat",
+                          fontSize: "1.1rem",
+                        }}
                       ></textarea>
-                    </label>
-                    <br />
 
-                    <label>
-                      Classify {foundPlant.name}
-                      <Stack spacing={1}>
-                        <Rating
-                          name="half-rating"
-                          defaultValue={5.0}
-                          precision={1.0}
-                          value={rating}
-                          onChange={(e) => setRating(e.target.value)}
-                        />
-                      </Stack>
-                    </label>
-                    <button className="button" type="submit">
-                      Create Review
-                    </button>
-                  </form>
+                      <br />
+
+                      <label>
+                        Classify {foundPlant.name}
+                        <Stack spacing={1} sx={{ margin: "10px 0 20px 0" }}>
+                          <Rating
+                            name="half-rating"
+                            defaultValue={5.0}
+                            precision={1.0}
+                            value={rating}
+                            onChange={(e) => setRating(e.target.value)}
+                          />
+                        </Stack>
+                      </label>
+
+                      <Button
+                        color="primary"
+                        type="submit"
+                        variant="contained"
+                        onClick={addWishList}
+                      >
+                        Create Review
+                      </Button>
+                    </form>
+                  </div>
                 </TabPanel>
               </Tabs>
             </div>
           </div>
         )}
-        <Link to={'/plants'}>Back</Link>
+        <Link to={"/plants"}>Back</Link>
       </div>
     </div>
   );

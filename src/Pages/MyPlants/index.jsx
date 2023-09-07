@@ -1,19 +1,20 @@
-import axios from 'axios';
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import DeleteIcon from '@mui/icons-material/Delete';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import { Button } from "@mui/material";
 
 function MyPlantsPage() {
   const [myPlants, setMyPlants] = useState(null);
 
   // const API_URL = 'https://botanicalhack.onrender.com';
-  const API_URL = 'http://localhost:5005';
+  const API_URL = "http://localhost:5005";
 
   const [fetchMyPlants, setFetchMyPlants] = useState(true);
 
-  const storedToken = localStorage.getItem('authToken');
+  const storedToken = localStorage.getItem("authToken");
 
   useEffect(() => {
     if (fetchMyPlants) {
@@ -55,45 +56,43 @@ function MyPlantsPage() {
       </div>
       <div
         style={{
-          display: 'flex',
-          textAlign: 'center',
-          margin: '30px',
+          display: "flex",
+          textAlign: "center",
+          margin: "30px",
         }}
       >
         {myPlants &&
           myPlants.map((plant) => {
             return (
-              <div key={plant._id} style={{ width: '300px', margin: '10px' }}>
+              <div key={plant._id} style={{ width: "300px", margin: "10px" }}>
                 <div>
                   <Link
                     to={`/plants/${plant._id}`}
-                    style={{ textDecoration: 'none', color: 'inherit' }}
+                    style={{ textDecoration: "none", color: "inherit" }}
                   >
                     <img
                       src={plant.image}
-                      style={{ width: '100%', height: 'auto' }}
+                      style={{ width: "100%", height: "auto" }}
                       alt="Plant image"
                     />
                   </Link>
                 </div>
                 <Link
                   to={`/plants/${plant._id}`}
-                  style={{ textDecoration: 'none', color: 'inherit' }}
+                  style={{ textDecoration: "none", color: "inherit" }}
                 >
                   {plant.name}
                 </Link>
                 <Tooltip title="Delete">
-                  <IconButton>
-                    <button
-                      style={{
-                        border: 'none',
-                        backgroundColor: 'transparent',
-                      }}
-                      onClick={() => removeMyPlants(plant._id)}
-                    >
-                      <DeleteIcon sx={{ color: 'grey.700' }} />
-                    </button>
+                  <IconButton
+                    aria-label="delete"
+                    size="large"
+                    color="secondary"
+                    onClick={() => removeMyPlants(plant._id)}
+                  >
+                    <DeleteIcon fontSize="inherit" />
                   </IconButton>
+                  
                 </Tooltip>
               </div>
             );
