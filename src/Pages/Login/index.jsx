@@ -112,7 +112,7 @@ function LoginPage() {
                 autoFocus
                 onChange={(e) => setEmail(e.target.value)}
                 sx={{ width: "300px" }}
-                // color="green"
+                color="primary"
                 inputProps={{ style: { color: "white" } }}
             
                
@@ -127,7 +127,7 @@ function LoginPage() {
                 autoComplete="current-password"
                 onChange={(e) => setPassword(e.target.value)}
                 sx={{ width: "300px" }}
-                // color="green"
+                color="primary"
                 inputProps={{ style: { color: "white" } }}
               />
 
@@ -135,7 +135,7 @@ function LoginPage() {
                 type="submit"
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                // color="green"
+                color="primary"
               >
                 Log In
               </Button>

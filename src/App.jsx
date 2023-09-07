@@ -12,76 +12,93 @@ import ProfilePage from "./Pages/ProfilePage";
 import MyPlantsPage from "./Pages/MyPlants";
 import WishListPage from "./Pages/WishList";
 import About from "./Pages/AboutPage";
-/* import { ThemeProvider, createTheme } from "@mui/material/styles";
+import Contacts from "./Pages/ContactsPage";
 
-const theme = createTheme({
+import {
+  experimental_extendTheme as materialExtendTheme,
+  Experimental_CssVarsProvider as MaterialCssVarsProvider,
+  THEME_ID as MATERIAL_THEME_ID,
+} from "@mui/material/styles";
+import { CssVarsProvider as JoyCssVarsProvider } from "@mui/joy/styles";
+
+
+//const materialTheme = materialExtendTheme();
+
+
+const materialTheme = materialExtendTheme({
   palette: {
     mode: "light",
-    green: {
+    primary: {
       main: "#227A60",
-      contrastText:"#ffffff"
+      // contrastText: "#ffffff",
     },
-    red: {
+    secondary: {
       main: "#c62828",
     },
-    orange: {
-      main: 'rgba(220, 117, 42, 0.7)',
-    }
   },
-}); */
+});
+
 function App() {
   return (
     <div>
-      {/* <ThemeProvider theme={theme}> */}
-        <Navbar />
+      <MaterialCssVarsProvider
+        defaultMode="system"
+        theme={{ [MATERIAL_THEME_ID]: materialTheme }}
+      >
+        <JoyCssVarsProvider defaultMode="system">
+          {/* <ThemeProvider theme={theme}> */}
+            <Navbar />
 
-        <Routes>
-          <Route path="/about" element={<About />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/" element={<HomePage />} />
-          <Route path="/plants" element={<AllPlantsPage />} />
-          <Route
-            path="/plants/:plantId"
-            element={
-              <IsPrivate>
-                <PlantDetails />
-              </IsPrivate>
-            }
-          />
-          <Route
-            path="/myPlants"
-            element={
-              <IsPrivate>
-                <MyPlantsPage />
-              </IsPrivate>
-            }
-          />
-          <Route
-            path="/wishList"
-            element={
-              <IsPrivate>
-                <WishListPage />
-              </IsPrivate>
-            }
-          />
-          <Route
-            path="/signup"
-            element={
-              <IsAnon>
-                <SignupPage />
-              </IsAnon>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <IsAnon>
-                <LoginPage />
-              </IsAnon>
-            }
-          />
-        </Routes>
-      {/* </ThemeProvider> */}
+            <Routes>
+              <Route path="/about" element={<About />} />
+              <Route path="/contacts" element={<Contacts />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/" element={<HomePage />} />
+              <Route path="/plants" element={<AllPlantsPage />} />
+              <Route
+                path="/plants/:plantId"
+                element={
+                  <IsPrivate>
+                    <PlantDetails />
+                  </IsPrivate>
+                }
+              />
+              <Route
+                path="/myPlants"
+                element={
+                  <IsPrivate>
+                    <MyPlantsPage />
+                  </IsPrivate>
+                }
+              />
+              <Route
+                path="/wishList"
+                element={
+                  <IsPrivate>
+                    <WishListPage />
+                  </IsPrivate>
+                }
+              />
+              <Route
+                path="/signup"
+                element={
+                  <IsAnon>
+                    <SignupPage />
+                  </IsAnon>
+                }
+              />
+              <Route
+                path="/login"
+                element={
+                  <IsAnon>
+                    <LoginPage />
+                  </IsAnon>
+                }
+              />
+            </Routes>
+          {/* </ThemeProvider> */}
+        </JoyCssVarsProvider>
+      </MaterialCssVarsProvider>
     </div>
   );
 }

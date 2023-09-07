@@ -114,6 +114,7 @@ function SignupPage(props) {
                 sx={{ width: "300px", color: "white" }}
                 inputProps={{ style: { color: 'white' } }}
                 InputLabelProps={{style: { color: 'white' }}}
+                color="primary"
               />
 
               <TextField
@@ -128,6 +129,7 @@ function SignupPage(props) {
                 sx={{ width: "300px", color: "white" }}
                 inputProps={{ style: { color: 'white' } }}
                 InputLabelProps={{style: { color: 'white' }}}
+                color="primary"
               />
               <TextField
                 margin="normal"
@@ -147,7 +149,8 @@ function SignupPage(props) {
               <Button
                 type="submit"
                 variant="contained"
-                sx={{ mt: 3, mb: 2, backgroundColor: "#227A60" }}
+                sx={{ mt: 3, mb: 2}}
+                // sx={{ mt: 3, mb: 2, backgroundColor: "#227A60" }}
               >
                 Sign up
               </Button>
