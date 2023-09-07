@@ -9,8 +9,8 @@ import SaveIcon from "@mui/icons-material/Save";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 function ProfilePage() {
-  // const API_URL = 'https://botanicalhack.onrender.com';
-  const API_URL = "http://localhost:5005";
+  const API_URL = 'https://botanicalhack.onrender.com';
+  //const API_URL = "http://localhost:5005";
   const storedToken = localStorage.getItem("authToken");
   const [user, setUser] = useState(null);
   const [name, setName] = useState("");

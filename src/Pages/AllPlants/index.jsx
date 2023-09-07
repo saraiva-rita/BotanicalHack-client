@@ -8,8 +8,8 @@ import Box from "@mui/material/Box";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 
-// const API_URL = 'https://botanicalhack.onrender.com';
-const API_URL = "http://localhost:5005";
+const API_URL = 'https://botanicalhack.onrender.com';
+//const API_URL = "http://localhost:5005";
 
 function AllPlantsPage() {
   const [plants, setPlants] = useState([]);

@@ -42,10 +42,10 @@ function App() {
   return (
     <div>
       <MaterialCssVarsProvider
-        defaultMode="system"
+        defaultMode="light"
         theme={{ [MATERIAL_THEME_ID]: materialTheme }}
       >
-        <JoyCssVarsProvider defaultMode="system">
+        <JoyCssVarsProvider defaultMode="light">
           {/* <ThemeProvider theme={theme}> */}
             <Navbar />
 
