@@ -127,7 +127,7 @@ function ProfilePage() {
               </div>
               {!isEditingName ? (
                 <Button
-                  color="green"
+                  // color="green"
                   variant="contained"
                   startIcon={<CreateIcon />}
                   onClick={() => setIsEditingName(true)}
