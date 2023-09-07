@@ -12,7 +12,7 @@ import ProfilePage from "./Pages/ProfilePage";
 import MyPlantsPage from "./Pages/MyPlants";
 import WishListPage from "./Pages/WishList";
 import About from "./Pages/AboutPage";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+/* import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
@@ -28,11 +28,11 @@ const theme = createTheme({
       main: 'rgba(220, 117, 42, 0.7)',
     }
   },
-});
+}); */
 function App() {
   return (
     <div>
-      <ThemeProvider theme={theme}>
+      {/* <ThemeProvider theme={theme}> */}
         <Navbar />
 
         <Routes>
@@ -81,7 +81,7 @@ function App() {
             }
           />
         </Routes>
-      </ThemeProvider>
+      {/* </ThemeProvider> */}
     </div>
   );
 }
