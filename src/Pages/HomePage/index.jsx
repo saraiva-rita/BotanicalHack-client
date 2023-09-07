@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import shadows from '@mui/material/styles/shadows';
 
 const plantCategories = [
   {
@@ -80,16 +79,25 @@ function HomePage() {
                     >
                       {plant.category}
                     </Link>
-                    <img
-                      src={`${plant.imageSection}?w=50&fit=crop&auto=format`}
-                      srcSet={`${plant.imageSection}?w=50&fit=crop&auto=format&dpr=2 2x`}
-                      alt={plant.name}
-                      loading="lazy"
-                      style={{
-                        width: '300px',
-                        height: 'auto',
+                    <Link
+                      to={'/plants'}
+                      state={{
+                        category: plant.category,
+                        description: plant.description,
+                        image: plant.imageBanner,
                       }}
-                    />
+                    >
+                      <img
+                        src={`${plant.imageSection}?w=50&fit=crop&auto=format`}
+                        srcSet={`${plant.imageSection}?w=50&fit=crop&auto=format&dpr=2 2x`}
+                        alt={plant.name}
+                        loading="lazy"
+                        style={{
+                          width: '300px',
+                          height: 'auto',
+                        }}
+                      />
+                    </Link>
                   </div>
                 </ImageListItem>
               );
@@ -100,9 +108,7 @@ function HomePage() {
       <div className="discover-allPlants">
         <div className="discover-allPlants-content">
           <h1>Discover our Plants</h1>
-          <Link className="button" style={{ color: '#227a60' }} to={'/plants'}>
-            Learn More
-          </Link>
+          <Link to={'/plants'}>Learn More</Link>
         </div>
       </div>
     </div>

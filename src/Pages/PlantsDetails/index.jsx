@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+/* import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Tabs from '@mui/joy/Tabs';
@@ -219,6 +219,295 @@ function PlantDetails() {
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
                       />
+                    </label>
+                    <br />
+
+                    <label>
+                      Classify {foundPlant.name}
+                      <Stack spacing={1}>
+                        <Rating
+                          name="half-rating"
+                          defaultValue={5.0}
+                          precision={1.0}
+                          value={rating}
+                          onChange={(e) => setRating(e.target.value)}
+                        />
+                      </Stack>
+                    </label>
+                    <button className="button" type="submit">
+                      Create Review
+                    </button>
+                  </form>
+                </TabPanel>
+              </Tabs>
+            </div>
+          </div>
+        )}
+        <Link to={'/plants'}>Back</Link>
+      </div>
+    </div>
+  );
+}
+
+export default PlantDetails; */
+
+import { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
+import Tabs from '@mui/joy/Tabs';
+import TabList from '@mui/joy/TabList';
+import Tab from '@mui/joy/Tab';
+import TabPanel from '@mui/joy/TabPanel';
+import Rating from '@mui/material/Rating';
+import Stack from '@mui/material/Stack';
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import PetsIcon from '@mui/icons-material/Pets';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import WaterDropIcon from '@mui/icons-material/WaterDrop';
+import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
+import PersonIcon from '@mui/icons-material/Person';
+import StarIcon from '@mui/icons-material/Star';
+
+function PlantDetails() {
+  const [foundPlant, setfoundPlant] = useState(null);
+
+  const [content, setContent] = useState('');
+  const [rating, setRating] = useState(1);
+
+  const [shouldGetPlant, setShouldGetPlant] = useState(true);
+
+  const [user, setUser] = useState(null);
+  const [shouldGetUser, setShouldGetUser] = useState(true);
+
+  // const API_URL = 'https://botanicalhack.onrender.com';
+  const API_URL = 'http://localhost:5005';
+
+  const { plantId } = useParams();
+
+  const storedToken = localStorage.getItem('authToken');
+
+  useEffect(() => {
+    if (shouldGetPlant) {
+      axios
+        .get(`${API_URL}/api/plants/${plantId}`, {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        })
+        .then((response) => {
+          const onePlant = response.data;
+          setfoundPlant(onePlant);
+        })
+        .catch((error) => console.log(error))
+        .finally(() => setShouldGetPlant(false));
+    }
+  }, [plantId, shouldGetPlant, storedToken]);
+
+  // Add New Review
+
+  const handleSubmitAddReview = (e) => {
+    e.preventDefault();
+
+    const requestBody = { content, rating };
+
+    axios
+      .post(`${API_URL}/api/plants/${plantId}/createReview`, requestBody, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+      .then(() => {
+        setShouldGetPlant(true);
+        setShouldGetUser(true);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const deleteReview = async (reviewId) => {
+    try {
+      setShouldGetPlant(true);
+      setShouldGetUser(true);
+      await axios.delete(
+        `${API_URL}/api/plants/${plantId}/${reviewId}/deleteReview`,
+        {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (shouldGetUser) {
+      axios
+        .get(`${API_URL}/auth/profile`, {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        })
+        .then((response) => {
+          const oneUser = response.data;
+          setUser(oneUser);
+        })
+        .catch((error) => console.log(error))
+        .finally(() => setShouldGetUser(false));
+    }
+  }, [storedToken, shouldGetUser]);
+
+  // Add Plants to MyPlants
+  const addMyPlants = () => {
+    axios
+      .post(`${API_URL}/api/plants/${plantId}/addMyPlants`, '', {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+      .then(() => {
+        setShouldGetPlant(true);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  // Add Plants to Wish List
+  const addWishList = () => {
+    axios
+      .post(`${API_URL}/api/plants/${plantId}/addToWishList`, '', {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+      .then(() => {
+        setShouldGetPlant(true);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  return (
+    <div>
+      <div className="plants-details-banner">
+        <div className="details-banner-wrapper grey-color">
+          <div className="banner-content">
+            <h2>Discover our Plants</h2>
+            <p>
+              Plants are nature's healers. They teach us resilience, as they
+              adapt and thrive in diverse environments. In their presence, we
+              find a profound connection to the Earth and a reminder of our
+              responsibility to nurture and protect the source of our
+              well-being.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div style={{ width: '98%', height: 430 }}>
+        {foundPlant && (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            <div>
+              <img
+                className="details-img"
+                src={foundPlant.image}
+                alt="Plant image"
+              />
+            </div>
+            <div className="details-content">
+              <h1 style={{ margin: '20px 0' }}>{foundPlant.name}</h1>
+              <div style={{ margin: '20px 0' }}>
+                <button
+                  className="button"
+                  style={{ marginRight: '20px' }}
+                  onClick={addMyPlants}
+                >
+                  Add to My Plants
+                </button>
+                <button className="button" onClick={addWishList}>
+                  Add to My WishList
+                </button>
+              </div>
+              <Tabs aria-label="Basic tabs" defaultValue={0}>
+                <TabList>
+                  <Tab>Description</Tab>
+                  <Tab>Care Tips</Tab>
+                  <Tab>Reviews</Tab>
+                </TabList>
+                <TabPanel value={0}>
+                  <div>
+                    <p>{foundPlant.description}</p>
+                    <br />
+                    <div className="plant-details-content">
+                      <div className="plant-characteristics">
+                        <h4>
+                          <WaterDropIcon /> Watering
+                        </h4>
+                        <p> {foundPlant.care.watering} </p>
+                      </div>
+                      <div className="plant-characteristics">
+                        <h4>
+                          <LightModeIcon /> Sunlight
+                        </h4>
+                        <p>{foundPlant.care.light}</p>
+                      </div>
+                      <div className="plant-characteristics">
+                        <h4>
+                          <CleaningServicesIcon /> Soil
+                        </h4>
+                        <p>{foundPlant.care.soil}</p>
+                      </div>
+                      <div className="plant-characteristics">
+                        <h4>
+                          <PetsIcon /> Toxicity:
+                        </h4>
+                        <p>{foundPlant.toxicity}</p>
+                      </div>
+                    </div>
+                  </div>
+                </TabPanel>
+                <TabPanel value={1}>
+                  <p>{foundPlant.tips}</p>
+                </TabPanel>
+                <TabPanel value={2}>
+                  <div>
+                    {foundPlant.reviews.map((review) => {
+                      return (
+                        <div className="posted-reviews" key={review._id}>
+                          <div className="reviews-content">
+                            <p>
+                              <PersonIcon /> {review.author.name}
+                            </p>
+                            <p>{review.content}</p>
+                            <p>
+                              {review.rating} <StarIcon />
+                            </p>
+                          </div>
+                          <div className="delete-reviews">
+                            <Tooltip title="Delete">
+                              <IconButton>
+                                {user.reviews.includes(review._id) && (
+                                  <button
+                                    style={{
+                                      border: 'none',
+                                      backgroundColor: 'transparent',
+                                    }}
+                                    onClick={() => deleteReview(review._id)}
+                                  >
+                                    <DeleteIcon sx={{ color: 'grey.700' }} />
+                                  </button>
+                                )}
+                              </IconButton>
+                            </Tooltip>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  <form onSubmit={handleSubmitAddReview}>
+                    <label>
+                      <textarea
+                        name="content"
+                        type="text"
+                        value={content}
+                        placeholder=" Write your review"
+                        onChange={(e) => setContent(e.target.value)}
+                        cols="50"
+                        rows="7"
+                      ></textarea>
                     </label>
                     <br />
 

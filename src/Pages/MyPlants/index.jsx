@@ -64,19 +64,24 @@ function MyPlantsPage() {
           myPlants.map((plant) => {
             return (
               <div key={plant._id} style={{ width: '300px', margin: '10px' }}>
+                <div>
+                  <Link
+                    to={`/plants/${plant._id}`}
+                    style={{ textDecoration: 'none', color: 'inherit' }}
+                  >
+                    <img
+                      src={plant.image}
+                      style={{ width: '100%', height: 'auto' }}
+                      alt="Plant image"
+                    />
+                  </Link>
+                </div>
                 <Link
                   to={`/plants/${plant._id}`}
                   style={{ textDecoration: 'none', color: 'inherit' }}
                 >
                   {plant.name}
                 </Link>
-                <div>
-                  <img
-                    src={plant.image}
-                    style={{ width: '100%', height: 'auto' }}
-                    alt="Plant image"
-                  />
-                </div>
                 <Tooltip title="Delete">
                   <IconButton>
                     <button
