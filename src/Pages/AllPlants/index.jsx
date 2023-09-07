@@ -73,7 +73,10 @@ function AllPlantsPage() {
         </div>
       </div>
 
-      <SearchBar searchPlant={searchPlant} />
+      <div style={{ margin: "20px 0 10px 0", textAlign: 'center' }}>
+        <SearchBar searchPlant={searchPlant}  />
+      </div>
+
       <div
         style={{
           display: "flex",
