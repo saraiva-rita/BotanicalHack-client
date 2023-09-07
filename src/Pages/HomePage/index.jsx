@@ -1,50 +1,51 @@
-import { Link } from "react-router-dom";
-import Box from "@mui/material/Box";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
+import { Link } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import shadows from '@mui/material/styles/shadows';
 
 const plantCategories = [
   {
-    category: "Suspended",
+    category: 'Suspended',
     description:
-      "Suspended or hanging plants are those that are typically displayed in hanging baskets or from the ceiling, adding an attractive vertical element to your decor.",
-    imageBanner: "/images/suspended-banner.avif",
-    imageSection: "/images/suspended-plant.jpeg",
+      'Suspended or hanging plants are those that are typically displayed in hanging baskets or from the ceiling, adding an attractive vertical element to your decor.',
+    imageBanner: '/images/suspended-banner.avif',
+    imageSection: '/images/suspended-plant.jpeg',
   },
   {
-    category: "Purifying",
+    category: 'Purifying',
     description:
-      "Purifying plants are known for their ability to improve indoor air quality by removing toxins and pollutants from the air.",
-    imageSection: "/images/sansevieria-laurentii.jpeg",
-    imageBanner: "/images/purifying-banner.avif",
+      'Purifying plants are known for their ability to improve indoor air quality by removing toxins and pollutants from the air.',
+    imageSection: '/images/sansevieria-laurentii.jpeg',
+    imageBanner: '/images/purifying-banner.avif',
   },
   {
-    category: "Pet Friendly",
+    category: 'Pet Friendly',
     description:
-      "These are plants that are non-toxic to pets, making them safe to have around animals like cats and dogs.",
-    imageBanner: "/images/pet-friendly-banner.png",
-    imageSection: "/images/pink.png",
+      'These are plants that are non-toxic to pets, making them safe to have around animals like cats and dogs.',
+    imageBanner: '/images/pet-friendly-banner.png',
+    imageSection: '/images/pink.png',
   },
   {
-    category: "Calathea",
+    category: 'Calathea',
     description:
-      "Calathea is a genus of decorative indoor plants with striking foliage patterns. They are popular for their vibrant and unique leaves.",
-    imageBanner: "/images/calathea-banner.avif",
-    imageSection: "/images/calathea orbifolia.jpg",
+      'Calathea is a genus of decorative indoor plants with striking foliage patterns. They are popular for their vibrant and unique leaves.',
+    imageBanner: '/images/calathea-banner.avif',
+    imageSection: '/images/calathea orbifolia.jpg',
   },
   {
-    category: "Easy-to-Care",
+    category: 'Easy-to-Care',
     description:
-      "These plants are low-maintenance and require minimal attention, making them suitable for beginners or busy individuals.",
-    imageBanner: "/images/easy-to-care-banner.avif",
-    imageSection: "/images/aloevera.png",
+      'These plants are low-maintenance and require minimal attention, making them suitable for beginners or busy individuals.',
+    imageBanner: '/images/easy-to-care-banner.avif',
+    imageSection: '/images/aloevera.png',
   },
   {
-    category: "Bonsai",
+    category: 'Bonsai',
     description:
-      "Bonsai is the art of cultivating miniature trees, creating aesthetically pleasing, small-scale representations of full-sized trees through careful pruning and shaping.",
-    imageBanner: "/images/bonsai-banner.jpeg",
-    imageSection: "/images/WisteriaBonsai.webp",
+      'Bonsai is the art of cultivating miniature trees, creating aesthetically pleasing, small-scale representations of full-sized trees through careful pruning and shaping.',
+    imageBanner: '/images/bonsai-banner.jpeg',
+    imageSection: '/images/WisteriaBonsai.webp',
   },
 ];
 
@@ -54,23 +55,23 @@ function HomePage() {
       <div
         className="plants-category"
         style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          textAlign: "center",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          textAlign: 'center',
         }}
       >
-        <Box sx={{ width: 1350, height: 870 }}>
+        <Box sx={{ width: 1200, height: 870 }}>
           <ImageList variant="masonry" cols={3} gap={10}>
             {plantCategories.map((plant, index) => {
               return (
                 <ImageListItem key={plant._id}>
                   <div
                     key={index}
-                    style={{ borderBottom: "0.5px solid #e0e1e1" }}
+                    style={{ boxShadow: '3px 3px 3px 2px #e7e8e9' }}
                   >
                     <Link
-                      to={"/plants"}
+                      to={'/plants'}
                       state={{
                         category: plant.category,
                         description: plant.description,
@@ -85,8 +86,8 @@ function HomePage() {
                       alt={plant.name}
                       loading="lazy"
                       style={{
-                        width: "300px",
-                        height: "auto",
+                        width: '300px',
+                        height: 'auto',
                       }}
                     />
                   </div>
@@ -97,10 +98,12 @@ function HomePage() {
         </Box>
       </div>
       <div className="discover-allPlants">
-        <h1>Discover our Plants</h1>
-        <Link className="button" to={"/plants"}>
-          Learn More
-        </Link>
+        <div className="discover-allPlants-content">
+          <h1>Discover our Plants</h1>
+          <Link className="button" style={{ color: '#227a60' }} to={'/plants'}>
+            Learn More
+          </Link>
+        </div>
       </div>
     </div>
   );
