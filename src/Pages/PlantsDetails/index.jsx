@@ -9,7 +9,6 @@ import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
 import PetsIcon from "@mui/icons-material/Pets";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import WaterDropIcon from "@mui/icons-material/WaterDrop";
@@ -22,14 +21,17 @@ function PlantDetails() {
   const [foundPlant, setfoundPlant] = useState(null);
 
   const [content, setContent] = useState("");
-  const [rating, setRating] = useState(1);
+  const [rating, setRating] = useState(0);
 
   const [shouldGetPlant, setShouldGetPlant] = useState(true);
 
   const [user, setUser] = useState(null);
   const [shouldGetUser, setShouldGetUser] = useState(true);
 
-  const API_URL = 'https://botanicalhack.onrender.com';
+  const [isInMyPlants, setIsInMyPlants] = useState(false);
+  const [isInWishList, setIsInWishList] = useState(false);
+
+  const API_URL = "https://botanicalhack.onrender.com";
   //const API_URL = "http://localhost:5005";
 
   const { plantId } = useParams();
@@ -65,6 +67,8 @@ function PlantDetails() {
       .then(() => {
         setShouldGetPlant(true);
         setShouldGetUser(true);
+        setContent("");
+        setRating(0);
       })
       .catch((error) => console.log(error));
   };
@@ -99,28 +103,67 @@ function PlantDetails() {
     }
   }, [storedToken, shouldGetUser]);
 
-  // Add Plants to MyPlants
-  const addMyPlants = () => {
-    axios
-      .post(`${API_URL}/api/plants/${plantId}/addMyPlants`, "", {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      })
-      .then(() => {
-        setShouldGetPlant(true);
-      })
-      .catch((error) => console.log(error));
+  useEffect(() => {
+    if (user) {
+      setIsInMyPlants(user.myPlants.includes(plantId));
+      setIsInWishList(user.wishList.includes(plantId));
+    }
+  }, [plantId, user]);
+
+  // Add / Remove Plants to MyPlants
+  const toggleMyPlants = () => {
+    console.log(isInMyPlants);
+    if (isInMyPlants) {
+      // remove from my plants
+      axios
+        .delete(`${API_URL}/api/myPlants/${plantId}/removeMyPlants`, {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        })
+        .then(() => {
+          setShouldGetPlant(true);
+          setIsInMyPlants(false);
+        })
+        .catch((error) => console.log(error));
+    } else {
+      // add to myPlants
+      axios
+        .post(`${API_URL}/api/plants/${plantId}/addMyPlants`, "", {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        })
+        .then(() => {
+          setShouldGetPlant(true);
+          setIsInMyPlants(true);
+        })
+        .catch((error) => console.log(error));
+    }
   };
 
-  // Add Plants to Wish List
-  const addWishList = () => {
-    axios
-      .post(`${API_URL}/api/plants/${plantId}/addToWishList`, "", {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      })
-      .then(() => {
-        setShouldGetPlant(true);
-      })
-      .catch((error) => console.log(error));
+  // Add / Remove Plants to Wishlist
+  const toggleWishList = () => {
+    if (isInWishList) {
+      // remove from wishlist
+      axios
+        .delete(`${API_URL}/api/wishList/${plantId}/removeWishList`, {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        })
+        .then(() => {
+          setShouldGetPlant(true);
+          setIsInWishList(false);
+        })
+        .catch((error) => console.log(error));
+    } else {
+      // add to wishList
+
+      axios
+        .post(`${API_URL}/api/plants/${plantId}/addToWishList`, "", {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        })
+        .then(() => {
+          setShouldGetPlant(true);
+          setIsInWishList(true);
+        })
+        .catch((error) => console.log(error));
+    }
   };
 
   return (
@@ -160,28 +203,20 @@ function PlantDetails() {
                 <Button
                   color="primary"
                   variant="contained"
-                  onClick={addMyPlants}
+                  onClick={toggleMyPlants}
                 >
-                  Add to My Plants
+                  {isInMyPlants ? "Remove from My Plants" : " Add to My Plants"}
                 </Button>
                 <Button
                   color="primary"
                   variant="contained"
-                  onClick={addWishList}
+                  onClick={toggleWishList}
                   sx={{ marginLeft: "20px" }}
                 >
-                  Add to My Wishlist
+                  {isInWishList
+                    ? "Remove from Wishlist"
+                    : " Add to My Wishlist"}
                 </Button>
-                {/* <button
-                  className="button"
-                  style={{ marginRight: "20px" }}
-                  onClick={addMyPlants}
-                >
-                  Add to My Plants
-                </button> */}
-                {/* <button className="button" onClick={addWishList}>
-                  Add to My WishList
-                </button> */}
               </div>
               <Tabs aria-label="Basic tabs" defaultValue={0}>
                 <TabList>
@@ -334,12 +369,7 @@ function PlantDetails() {
                         </Stack>
                       </label>
 
-                      <Button
-                        color="primary"
-                        type="submit"
-                        variant="contained"
-                        onClick={addWishList}
-                      >
+                      <Button color="primary" type="submit" variant="contained">
                         Create Review
                       </Button>
                     </form>
